@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nova · interactive slider</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #faf9f6;
+      color: #1e1e2a;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(145deg, #1e1e2a 0%, #4a4a6a 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      font-weight: 500;
+      color: #2d2d3f;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #6c63ff;
+    }
+
+    .btn-outline {
+      border: 1.5px solid #1e1e2a;
+      background: transparent;
+      padding: 0.5rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: 0.25s;
+      cursor: pointer;
+    }
+
+    .btn-outline:hover {
+      background: #1e1e2a;
+      color: white;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      padding: 3rem 0 4rem;
+    }
+
+    .hero-content h1 {
+      font-size: 3.6rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-content h1 span {
+      background: linear-gradient(135deg, #6c63ff, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      color: #4a4a5e;
+      max-width: 480px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: #1e1e2a;
+      color: white;
+      border: none;
+      padding: 0.9rem 2.2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: 0.2s;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(30, 30, 42, 0.15);
+    }
+
+    .btn-primary:hover {
+      background: #2f2f4a;
+      transform: scale(1.02);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1.5px solid #d0d0dd;
+      padding: 0.9rem 2.2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      border-color: #6c63ff;
+      color: #6c63ff;
+    }
+
+    .slider-wrapper {
+      background: #f0edf9;
+      border-radius: 48px;
+      padding: 1.5rem 1.5rem 2rem;
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.06);
+      position: relative;
+    }
+
+    .slider-container {
+      overflow: hidden;
+      border-radius: 32px;
+      background: #ddd8ed;
+      position: relative;
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slider-track {
+      display: flex;
+      transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide {
+      min-width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #d9d2e8;
+      font-size: 2rem;
+      color: #2d2d44;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .slide-1 { background: linear-gradient(145deg, #a78bfa, #7c6af0); }
+    .slide-2 { background: linear-gradient(145deg, #f9a8d4, #f472b6); }
+    .slide-3 { background: linear-gradient(145deg, #6ee7b7, #34d399); }
+    .slide-4 { background: linear-gradient(145deg, #fcd34d, #f59e0b); }
+
+    .slide-content {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+      padding: 1.2rem 2.2rem;
+      border-radius: 60px;
+      color: white;
+      font-weight: 600;
+      font-size: 1.6rem;
+      letter-spacing: -0.01em;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .slider-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.2rem;
+      margin-top: 1.4rem;
+    }
+
+    .slider-btn {
+      background: white;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 40px;
+      font-size: 1.2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      transition: 0.15s;
+      font-weight: 600;
+      color: #1e1e2a;
+      border: 1px solid rgba(0,0,0,0.02);
+    }
+
+    .slider-btn:hover {
+      background: #1e1e2a;
+      color: white;
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(30,30,42,0.12);
+    }
+
+    .slider-dots {
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 20px;
+      background: #cbc3dd;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .dot.active {
+      background: #1e1e2a;
+      width: 28px;
+    }
+
+    .dot:hover {
+      background: #6c63ff;
+    }
+
+    .section-title {
+      font-size: 2.4rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 2.5rem 0 1.5rem;
+    }
+
+    .section-title span {
+      background: linear-gradient(135deg, #6c63ff, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin: 2.5rem 0 3.5rem;
+    }
+
+    .service-card {
+      background: white;
+      padding: 2rem 1.5rem;
+      border-radius: 36px;
+      box-shadow: 0 12px 28px -10px rgba(0,0,0,0.04);
+      transition: 0.2s ease;
+      border: 1px solid rgba(0,0,0,0.02);
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px -14px rgba(108, 99, 255, 0.12);
+      border-color: #e0dcf5;
+    }
+
+    .service-card .emoji-lg {
+      font-size: 2.6rem;
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .service-card p {
+      color: #5a5a72;
+      font-size: 0.95rem;
+    }
+
+    .cta-block {
+      background: #1e1e2a;
+      border-radius: 64px;
+      padding: 3rem 4rem;
+      margin: 2.5rem 0 4rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    .cta-block h2 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-block h2 small {
+      font-weight: 400;
+      font-size: 1.2rem;
+      opacity: 0.7;
+      display: block;
+      margin-top: 0.2rem;
+    }
+
+    .cta-btn {
+      background: white;
+      color: #1e1e2a;
+      border: none;
+      padding: 0.9rem 2.8rem;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: 0.15s;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .cta-btn:hover {
+      background: #f0edff;
+      transform: scale(1.02);
+    }
+
+    .footer {
+      border-top: 1px solid rgba(0,0,0,0.04);
+      padding: 2.5rem 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      color: #4a4a5e;
+    }
+
+    .footer-col p {
+      font-weight: 400;
+      font-size: 0.95rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: #3d3d55;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #6c63ff;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 1.5rem 0;
+      }
+      .hero-content h1 {
+        font-size: 2.6rem;
+      }
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav-links {
+        gap: 1.2rem;
+      }
+      .cta-block {
+        flex-direction: column;
+        text-align: center;
+        padding: 2.5rem 1.5rem;
+      }
+      .cta-block h2 {
+        margin-bottom: 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 1.2rem;
+      }
+      .hero-content h1 {
+        font-size: 2.2rem;
+      }
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar">
+      <div class="logo">✦ Nova</div>
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">About</a>
+      </div>
+      <button class="btn-outline" id="navCtaBtn">Get started</button>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Beautiful <span>structure</span> <br />with motion</h1>
+        <p>Interactive slider, polished buttons, and a layout that feels alive — all with clean, functional design.</p>
+        <div class="hero-actions">
+          <button class="btn-primary" id="heroPrimaryBtn">Explore</button>
+          <button class="btn-secondary" id="heroSecondaryBtn">Learn more</button>
+        </div>
+      </div>
+
+      <div class="slider-wrapper">
+        <div class="slider-container" id="sliderContainer">
+          <div class="slider-track" id="sliderTrack">
+            <div class="slide slide-1"><span class="slide-content">✦ Brand identity</span></div>
+            <div class="slide slide-2"><span class="slide-content">🌸 Visual story</span></div>
+            <div class="slide slide-3"><span class="slide-content">🌿 Natural flow</span></div>
+            <div class="slide slide-4"><span class="slide-content">☀️ Bold palette</span></div>
+          </div>
+        </div>
+
+        <div class="slider-controls">
+          <button class="slider-btn" id="prevSlide" aria-label="Previous slide">←</button>
+          <div class="slider-dots" id="sliderDots">
+            <button class="dot active" data-index="0" aria-label="Slide 1"></button>
+            <button class="dot" data-index="1" aria-label="Slide 2"></button>
+            <button class="dot" data-index="2" aria-label="Slide 3"></button>
+            <button class="dot" data-index="3" aria-label="Slide 4"></button>
+          </div>
+          <button class="slider-btn" id="nextSlide" aria-label="Next slide">→</button>
+        </div>
+      </div>
+    </section>
+
+    <h2 class="section-title">Built with <span>care</span> &amp; precision</h2>
+    <div class="card-grid">
+      <div class="service-card">
+        <span class="emoji-lg">🌿</span>
+        <h3>Clean hierarchy</h3>
+        <p>Visual order that guides the eye naturally.</p>
+      </div>
+      <div class="service-card">
+        <span class="emoji-lg">🎨</span>
+        <h3>Refined palette</h3>
+        <p>Soft contrasts and subtle gradients.</p>
+      </div>
+      <div class="service-card">
+        <span class="emoji-lg">📦</span>
+        <h3>Modular layout</h3>
+        <p>Flexible, scalable, and consistent.</p>
+      </div>
+      <div class="service-card">
+        <span class="emoji-lg">💎</span>
+        <h3>Attention to detail</h3>
+        <p>Spacing, typography, rhythm.</p>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <h2>Ready to build something <br /><small>structured, beautiful, and yours.</small></h2>
+      <button class="cta-btn" id="ctaMainBtn">Start now →</button>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-col">
+        <p style="font-weight: 600; color: #1e1e2a;">✦ Nova</p>
+        <p style="margin-top: 0.3rem;">© 2026 · interactive &amp; structured</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Twitter</a>
+        <a href="#">GitHub</a>
+        <a href="#">Dribbble</a>
+        <a href="#">Contact</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function() {
+      const track = document.getElementById('sliderTrack');
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.dot');
+      const prevBtn = document.getElementById('prevSlide');
+      const nextBtn = document.getElementById('nextSlide');
+      let currentIndex = 0;
+      const totalSlides = slides.length;
+
+      function updateSlider(index) {
+        if (index < 0) index = totalSlides - 1;
+        if (index >= totalSlides) index = 0;
+        currentIndex = index;
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === currentIndex);
+        });
+      }
+
+      function goToSlide(index) {
+        updateSlider(index);
+      }
+
+      function nextSlide() {
+        goToSlide(currentIndex + 1);
+      }
+
+      function prevSlide() {
+        goToSlide(currentIndex - 1);
+      }
+
+      prevBtn.addEventListener('click', prevSlide);
+      nextBtn.addEventListener('click', nextSlide);
+
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', function() {
+          goToSlide(idx);
+        });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') prevSlide();
+        if (e.key === 'ArrowRight') nextSlide();
+      });
+
+      document.getElementById('navCtaBtn').addEventListener('click', function() {
+        alert('✨ Welcome! Let’s get started on your beautiful journey.');
+      });
+
+      document.getElementById('heroPrimaryBtn').addEventListener('click', function() {
+        alert('🚀 Explore the structured world of Nova.');
+      });
+
+      document.getElementById('heroSecondaryBtn').addEventListener('click', function() {
+        alert('📖 Learn more about our design philosophy.');
+      });
+
+      document.getElementById('ctaMainBtn').addEventListener('click', function() {
+        alert('🌟 Start building something beautiful today.');
+      });
+    })();
+  </script>
+</body>
+</html>
