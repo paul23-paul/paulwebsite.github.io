@@ -426,7 +426,6 @@
       color: #6c63ff;
     }
 
-    /* Info Panel */
     .info-panel {
       display: none;
       background: white;
@@ -492,7 +491,7 @@
       color: #5a5a72;
     }
 
-    /* Contact Form Modal */
+    /* Contact Modal */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -707,7 +706,6 @@
       <button class="btn-outline" id="navCtaBtn">Get started</button>
     </nav>
 
-    <!-- Info Panel -->
     <div id="infoPanel" class="info-panel">
       <h2 id="panelTitle">Welcome</h2>
       <p id="panelDesc">Select a menu item to explore more.</p>
@@ -892,7 +890,7 @@
         window.open(url, '_blank');
       }
 
-      // --- EXPLORE PAGE (custom content) ---
+      // --- EXPLORE PAGE (impressive microsite) ---
       function openExplorePage() {
         const exploreHTML = `
         <!DOCTYPE html>
@@ -908,161 +906,278 @@
             * { margin: 0; padding: 0; box-sizing: border-box; }
             body {
               font-family: 'Inter', sans-serif;
-              background: #faf9f6;
-              color: #1e1e2a;
+              background: #0a0a12;
+              color: #f0f0f5;
               line-height: 1.6;
-              display: flex;
-              align-items: center;
-              justify-content: center;
               min-height: 100vh;
-              padding: 2rem;
+            }
+            .explore-hero {
+              background: linear-gradient(135deg, #0a0a12 0%, #1a1a2e 50%, #16213e 100%);
+              padding: 5rem 2rem 4rem;
               text-align: center;
+              position: relative;
+              overflow: hidden;
+            }
+            .explore-hero::before {
+              content: '';
+              position: absolute;
+              top: -50%;
+              left: -50%;
+              width: 200%;
+              height: 200%;
+              background: radial-gradient(circle at 30% 50%, rgba(108,99,255,0.08) 0%, transparent 60%),
+                          radial-gradient(circle at 70% 80%, rgba(167,139,250,0.06) 0%, transparent 50%);
+              animation: pulseBg 8s ease-in-out infinite alternate;
+            }
+            @keyframes pulseBg {
+              0% { transform: scale(1) rotate(0deg); }
+              100% { transform: scale(1.1) rotate(3deg); }
+            }
+            .explore-hero h1 {
+              font-size: 4.5rem;
+              font-weight: 700;
+              letter-spacing: -0.03em;
+              background: linear-gradient(135deg, #6c63ff, #a78bfa, #6c63ff);
+              background-size: 200% 200%;
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+              animation: shimmer 4s ease-in-out infinite;
+              position: relative;
+              z-index: 1;
+            }
+            @keyframes shimmer {
+              0%, 100% { background-position: 0% 50%; }
+              50% { background-position: 100% 50%; }
+            }
+            .explore-hero .subtitle {
+              font-size: 1.3rem;
+              color: #a0a0b8;
+              margin-top: 0.5rem;
+              position: relative;
+              z-index: 1;
+            }
+            .explore-hero .tagline {
+              font-size: 1.1rem;
+              color: #6c63ff;
+              font-weight: 500;
+              margin-top: 0.3rem;
+              position: relative;
+              z-index: 1;
+            }
+            .explore-content {
+              max-width: 1100px;
+              margin: 0 auto;
+              padding: 3rem 2rem 4rem;
+            }
+            .explore-grid {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 2rem;
+              margin: 2rem 0 3rem;
             }
             .explore-card {
-              max-width: 800px;
-              background: white;
-              padding: 4rem 3rem;
-              border-radius: 64px;
-              box-shadow: 0 30px 60px -20px rgba(0,0,0,0.15);
-              border: 1px solid rgba(0,0,0,0.02);
+              background: rgba(255,255,255,0.04);
+              backdrop-filter: blur(12px);
+              border: 1px solid rgba(255,255,255,0.06);
+              padding: 2.5rem 1.8rem;
+              border-radius: 32px;
+              transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+              cursor: default;
+              position: relative;
+              overflow: hidden;
             }
-            h1 {
-              font-size: 3.2rem;
+            .explore-card::before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background: linear-gradient(135deg, rgba(108,99,255,0.05), rgba(167,139,250,0.02));
+              opacity: 0;
+              transition: opacity 0.4s;
+            }
+            .explore-card:hover::before {
+              opacity: 1;
+            }
+            .explore-card:hover {
+              transform: translateY(-8px);
+              border-color: rgba(108,99,255,0.3);
+              box-shadow: 0 20px 40px -12px rgba(108,99,255,0.15);
+            }
+            .explore-card .icon {
+              font-size: 3rem;
+              display: block;
+              margin-bottom: 0.8rem;
+            }
+            .explore-card h4 {
+              font-size: 1.3rem;
+              font-weight: 600;
+              margin-bottom: 0.4rem;
+              color: #f0f0f5;
+            }
+            .explore-card p {
+              color: #9090aa;
+              font-size: 0.95rem;
+            }
+            .explore-stats {
+              display: grid;
+              grid-template-columns: repeat(4, 1fr);
+              gap: 1.5rem;
+              margin: 3rem 0;
+              padding: 2rem;
+              background: rgba(255,255,255,0.03);
+              border-radius: 32px;
+              border: 1px solid rgba(255,255,255,0.05);
+            }
+            .stat-item {
+              text-align: center;
+            }
+            .stat-item .number {
+              font-size: 2.8rem;
               font-weight: 700;
-              letter-spacing: -0.02em;
-              margin-bottom: 0.5rem;
               background: linear-gradient(135deg, #6c63ff, #a78bfa);
               -webkit-background-clip: text;
               -webkit-text-fill-color: transparent;
               background-clip: text;
             }
-            .subtitle {
-              font-size: 1.1rem;
-              color: #6c63ff;
-              font-weight: 500;
-              margin-bottom: 1.5rem;
-            }
-            p {
-              font-size: 1.15rem;
-              color: #4a4a5e;
-              max-width: 600px;
-              margin: 0 auto 2rem;
-            }
-            .explore-grid {
-              display: grid;
-              grid-template-columns: repeat(3, 1fr);
-              gap: 1.5rem;
-              margin: 2rem 0;
-            }
-            .explore-item {
-              background: #f5f3fe;
-              padding: 1.8rem 1rem;
-              border-radius: 28px;
-              transition: 0.2s;
-            }
-            .explore-item:hover {
-              transform: translateY(-4px);
-              box-shadow: 0 12px 24px -8px rgba(108,99,255,0.15);
-            }
-            .explore-item .icon {
-              font-size: 2.8rem;
-              display: block;
-              margin-bottom: 0.5rem;
-            }
-            .explore-item h4 {
-              font-weight: 600;
-              font-size: 1.1rem;
-              margin-bottom: 0.2rem;
-            }
-            .explore-item p {
+            .stat-item .label {
+              color: #9090aa;
               font-size: 0.9rem;
-              color: #5a5a72;
-              margin: 0;
+              margin-top: 0.2rem;
             }
             .explore-quote {
-              background: #f0edf9;
-              border-radius: 32px;
-              padding: 1.8rem 2rem;
-              margin: 2rem 0 1.5rem;
-              font-style: italic;
-              color: #2d2d44;
-              font-size: 1.1rem;
+              background: rgba(108,99,255,0.06);
               border-left: 4px solid #6c63ff;
+              padding: 2rem 2.5rem;
+              border-radius: 20px;
+              margin: 2.5rem 0;
+              font-style: italic;
+              color: #c0c0d8;
+              font-size: 1.15rem;
             }
-            .btn-back {
-              display: inline-block;
-              background: #1e1e2a;
+            .explore-quote cite {
+              display: block;
+              margin-top: 0.5rem;
+              font-style: normal;
+              color: #6c63ff;
+              font-weight: 500;
+            }
+            .explore-cta {
+              text-align: center;
+              margin-top: 2.5rem;
+            }
+            .btn-explore-close {
+              background: #6c63ff;
               color: white;
-              text-decoration: none;
-              padding: 0.9rem 2.5rem;
+              border: none;
+              padding: 0.9rem 2.8rem;
               border-radius: 60px;
               font-weight: 600;
-              transition: 0.2s;
-              border: none;
+              font-size: 1.1rem;
               cursor: pointer;
+              transition: 0.3s;
+              box-shadow: 0 8px 30px rgba(108,99,255,0.3);
             }
-            .btn-back:hover {
-              background: #2f2f4a;
-              transform: scale(1.02);
+            .btn-explore-close:hover {
+              transform: scale(1.05);
+              box-shadow: 0 12px 40px rgba(108,99,255,0.4);
+              background: #7c73ff;
             }
-            @media (max-width: 600px) {
+            .explore-footer {
+              text-align: center;
+              padding: 2rem;
+              border-top: 1px solid rgba(255,255,255,0.05);
+              color: #60607a;
+              font-size: 0.9rem;
+            }
+            @media (max-width: 800px) {
               .explore-grid { grid-template-columns: 1fr 1fr; }
-              .explore-card { padding: 2rem 1.5rem; }
-              h1 { font-size: 2.4rem; }
+              .explore-stats { grid-template-columns: 1fr 1fr; }
+              .explore-hero h1 { font-size: 3rem; }
             }
-            @media (max-width: 400px) {
+            @media (max-width: 500px) {
               .explore-grid { grid-template-columns: 1fr; }
+              .explore-stats { grid-template-columns: 1fr; }
+              .explore-hero { padding: 3rem 1.5rem; }
+              .explore-hero h1 { font-size: 2.4rem; }
+              .explore-content { padding: 2rem 1rem; }
             }
           </style>
         </head>
         <body>
-          <div class="explore-card">
+          <div class="explore-hero">
             <h1>✦ Explore Vertex</h1>
             <div class="subtitle">Where structure meets creativity</div>
-            <p>Vertex is more than a design system — it's a philosophy. Every component, every interaction, every pixel is crafted with purpose.</p>
+            <div class="tagline">A design ecosystem built for the future</div>
+          </div>
 
+          <div class="explore-content">
             <div class="explore-grid">
-              <div class="explore-item">
+              <div class="explore-card">
                 <span class="icon">🎯</span>
                 <h4>Purpose-Driven</h4>
-                <p>Every element serves a clear function.</p>
+                <p>Every element serves a clear function. No fluff, just intentional design.</p>
               </div>
-              <div class="explore-item">
+              <div class="explore-card">
                 <span class="icon">🌀</span>
                 <h4>Fluid Motion</h4>
-                <p>Animations that feel natural and responsive.</p>
+                <p>Animations that feel natural, responsive, and delight the user.</p>
               </div>
-              <div class="explore-item">
+              <div class="explore-card">
                 <span class="icon">🧠</span>
                 <h4>Human-Centric</h4>
-                <p>Designed for real people, not just screens.</p>
+                <p>Designed for real people, not just screens. Accessibility first.</p>
               </div>
-              <div class="explore-item">
+              <div class="explore-card">
                 <span class="icon">📐</span>
                 <h4>Perfect Grid</h4>
-                <p>Mathematical precision in every layout.</p>
+                <p>Mathematical precision in every layout — balance in every pixel.</p>
               </div>
-              <div class="explore-item">
+              <div class="explore-card">
                 <span class="icon">🌈</span>
                 <h4>Dynamic Color</h4>
-                <p>Palettes that adapt and inspire.</p>
+                <p>Palettes that adapt, inspire, and create emotional connections.</p>
               </div>
-              <div class="explore-item">
+              <div class="explore-card">
                 <span class="icon">🚀</span>
                 <h4>Future-Ready</h4>
-                <p>Built for tomorrow's web standards.</p>
+                <p>Built for tomorrow's web standards with today's best practices.</p>
+              </div>
+            </div>
+
+            <div class="explore-stats">
+              <div class="stat-item">
+                <div class="number">100+</div>
+                <div class="label">Components</div>
+              </div>
+              <div class="stat-item">
+                <div class="number">4.9s</div>
+                <div class="label">Avg. Load Time</div>
+              </div>
+              <div class="stat-item">
+                <div class="number">99%</div>
+                <div class="label">Accessibility</div>
+              </div>
+              <div class="stat-item">
+                <div class="number">12K+</div>
+                <div class="label">Lines of Code</div>
               </div>
             </div>
 
             <div class="explore-quote">
-              “Design is not just what it looks like and feels like. Design is how it works.” — Steve Jobs
+              “Design is not just what it looks like and feels like. Design is how it works.”
+              <cite>— Steve Jobs</cite>
             </div>
 
-            <p style="font-size: 1rem; color: #6c63ff; font-weight: 500; margin-bottom: 1.5rem;">
-              This is the Vertex experience — clean, bold, and endlessly adaptable.
-            </p>
+            <div class="explore-cta">
+              <button class="btn-explore-close" onclick="window.close();">✦ Close this tab</button>
+            </div>
+          </div>
 
-            <button class="btn-back" onclick="window.close();">Close this tab</button>
+          <div class="explore-footer">
+            Vertex · Built by Cameron Paul Seguisabal 2-D
           </div>
         </body>
         </html>
@@ -1081,17 +1196,17 @@
       const formError = document.getElementById('formError');
       const formSuccess = document.getElementById('formSuccess');
 
-      const WEBHOOK_URL = 'https://discord.com/api/webhooks/1529051992369135626/w3y0XW0z1r4qLML6SwGqpatb05xsZzNkuENJkWvojfJYWzRlVPCU9-Kol0hCm_u3KF2Q';
+      const WEBHOOK_URL = 'https://discord.com/api/webhooks/1529053018958467154/H-D330g4YXspPw79-M_6YtLfKP8J2wnre3qpOIUk4GPbxpFQxT4uYRVxShuLKfj9gAdx';
 
       function openModal() {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
-        // Reset form
         contactForm.reset();
         formError.style.display = 'none';
         formSuccess.style.display = 'none';
         formSubmitBtn.style.display = 'block';
         formSubmitBtn.disabled = false;
+        formSubmitBtn.textContent = 'Send Message ✦';
       }
 
       function closeModal() {
@@ -1149,7 +1264,6 @@
           if (response.ok) {
             formSubmitBtn.style.display = 'none';
             formSuccess.style.display = 'block';
-            // Auto-close after 3 seconds
             setTimeout(closeModal, 3000);
           } else {
             throw new Error('Webhook error');
@@ -1163,14 +1277,12 @@
       });
 
       // --- EVENT LISTENERS ---
-      // Home: hide panel and scroll to top
       document.getElementById('navHome').addEventListener('click', function(e) {
         e.preventDefault();
         infoPanel.classList.remove('active');
         document.getElementById('homeSection').scrollIntoView({ behavior: 'smooth' });
       });
 
-      // Features panel
       document.getElementById('navFeatures').addEventListener('click', function(e) {
         e.preventDefault();
         showPanel(
@@ -1187,7 +1299,6 @@
         );
       });
 
-      // Pricing panel
       document.getElementById('navPricing').addEventListener('click', function(e) {
         e.preventDefault();
         showPanel(
@@ -1201,7 +1312,6 @@
         );
       });
 
-      // About panel
       document.getElementById('navAbout').addEventListener('click', function(e) {
         e.preventDefault();
         showPanel(
@@ -1212,27 +1322,23 @@
             <div class="feature-item"><span class="icon">💡</span><h4>Our Values</h4><p>Clarity, simplicity, improvement.</p></div>
             <div class="feature-item"><span class="icon">🤝</span><h4>Community</h4><p>Open source and collaborative.</p></div>
           </div>
-          <p style="margin-top:1.5rem; color:#6c63ff; font-weight:500;">Built with ❤️ by passionate creators.</p>`
+          <p style="margin-top:1.5rem; color:#6c63ff; font-weight:500;">Built by Cameron Paul Seguisabal 2-D</p>`
         );
       });
 
       // --- BUTTON ACTIONS ---
-      // Explore → opens the dedicated Explore page
       document.getElementById('heroPrimaryBtn').addEventListener('click', function() {
         openExplorePage();
       });
 
-      // Get started (nav) → opens contact modal
       document.getElementById('navCtaBtn').addEventListener('click', function() {
         openModal();
       });
 
-      // Learn more → opens contact modal
       document.getElementById('heroSecondaryBtn').addEventListener('click', function() {
         openModal();
       });
 
-      // Start now (CTA) → opens contact modal
       document.getElementById('ctaMainBtn').addEventListener('click', function() {
         openModal();
       });
