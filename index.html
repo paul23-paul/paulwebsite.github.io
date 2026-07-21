@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>Vertex</title>
+  <title>Vertex · Website Builder</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
@@ -340,6 +340,8 @@
       white-space: nowrap;
     }
     .cta-btn:hover { background: #f0edff; transform: scale(1.02); }
+
+    /* --- FOOTER WITH QR --- */
     .footer {
       border-top: 1px solid rgba(0,0,0,0.04);
       padding: 2rem 0 1.5rem;
@@ -357,6 +359,7 @@
       display: flex;
       gap: 2rem;
       flex-wrap: wrap;
+      align-items: center;
     }
     .footer-links a {
       text-decoration: none;
@@ -367,6 +370,33 @@
       font-size: 0.95rem;
     }
     .footer-links a:hover { color: #6c63ff; }
+
+    /* QR Code in footer */
+    .footer-qr {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-left: 0.5rem;
+    }
+    .footer-qr img {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+    .footer-qr img:hover {
+      transform: scale(1.05);
+    }
+    .footer-qr .qr-label {
+      font-size: 0.7rem;
+      color: #9090aa;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
     .info-panel {
       display: none;
       background: white;
@@ -555,6 +585,9 @@
       .cta-block { flex-direction: column; text-align: center; padding: 2rem 1.5rem; border-radius: 36px; }
       .cta-block h2 { margin-bottom: 0.5rem; }
       .cta-btn { white-space: normal; width: 100%; justify-content: center; }
+      .footer { flex-direction: column; align-items: center; text-align: center; }
+      .footer-links { justify-content: center; }
+      .footer-qr { margin-left: 0; }
     }
     @media (max-width: 640px) {
       .container { padding: 0 1rem; }
@@ -603,8 +636,9 @@
       .form-group input, .form-group textarea { padding: 0.75rem 1rem; font-size: 0.95rem; }
       .form-submit { font-size: 1rem; padding: 0.85rem; min-height: 48px; }
       .footer { flex-direction: column; align-items: center; text-align: center; gap: 1rem; padding: 1.5rem 0 1rem; }
-      .footer-links { gap: 1.25rem; justify-content: center; }
+      .footer-links { gap: 1rem; justify-content: center; flex-wrap: wrap; }
       .footer-links a { font-size: 0.9rem; }
+      .footer-qr img { width: 48px; height: 48px; }
     }
     @media (max-width: 380px) {
       .container { padding: 0 0.75rem; }
@@ -722,6 +756,11 @@
         <a href="#" id="footerGithub">GitHub</a>
         <a href="#" id="footerFacebook">Facebook</a>
         <a href="#" id="footerContact">Contact</a>
+        <!-- QR Code -->
+        <div class="footer-qr">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DdQw4w9WgXcQ%26list%3DRDdQw4w9WgXcQ%26start_radio%3D1" alt="QR Code" title="Scan to watch" />
+          <span class="qr-label">Scan</span>
+        </div>
       </div>
     </footer>
   </div>
