@@ -426,7 +426,7 @@
       color: #6c63ff;
     }
 
-    /* Dynamic info panel */
+    /* Info Panel */
     .info-panel {
       display: none;
       background: white;
@@ -492,6 +492,158 @@
       color: #5a5a72;
     }
 
+    /* Contact Form Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: white;
+      border-radius: 48px;
+      padding: 3rem;
+      max-width: 520px;
+      width: 100%;
+      box-shadow: 0 40px 80px -20px rgba(0,0,0,0.3);
+      animation: fadeSlide 0.3s ease;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.5rem;
+      font-size: 1.8rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #4a4a5e;
+      transition: 0.2s;
+    }
+
+    .modal-close:hover {
+      color: #1e1e2a;
+      transform: rotate(90deg);
+    }
+
+    .modal h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #6c63ff, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .modal p {
+      color: #4a4a5e;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+      color: #1e1e2a;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      border: 1.5px solid #e0e0ea;
+      border-radius: 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: 0.2s;
+      background: #faf9f6;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #6c63ff;
+      box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-submit {
+      width: 100%;
+      background: #1e1e2a;
+      color: white;
+      border: none;
+      padding: 1rem;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .form-submit:hover {
+      background: #2f2f4a;
+      transform: scale(1.02);
+    }
+
+    .form-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    .form-success .check {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-success h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1e1e2a;
+    }
+
+    .form-success p {
+      color: #4a4a5e;
+    }
+
+    .form-error {
+      color: #e74c3c;
+      font-size: 0.85rem;
+      margin-top: 0.3rem;
+      display: none;
+    }
+
     @media (max-width: 800px) {
       .hero {
         grid-template-columns: 1fr;
@@ -518,6 +670,9 @@
       }
       .info-panel {
         padding: 1.5rem;
+      }
+      .modal {
+        padding: 2rem 1.5rem;
       }
     }
 
@@ -635,6 +790,37 @@
     </footer>
   </div>
 
+  <!-- Contact Modal -->
+  <div class="modal-overlay" id="contactModal">
+    <div class="modal">
+      <button class="modal-close" id="modalClose">✕</button>
+      <h2>💬 Get in Touch</h2>
+      <p>Send me a message and I'll get back to you on Discord.</p>
+
+      <form id="contactForm">
+        <div class="form-group">
+          <label for="userName">Your Name</label>
+          <input type="text" id="userName" placeholder="e.g. Alex Rivera" required />
+        </div>
+        <div class="form-group">
+          <label for="userEmail">Your Email</label>
+          <input type="email" id="userEmail" placeholder="alex@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="userMessage">Message</label>
+          <textarea id="userMessage" placeholder="What would you like to talk about?" required></textarea>
+        </div>
+        <div class="form-error" id="formError">Something went wrong. Please try again.</div>
+        <button type="submit" class="form-submit" id="formSubmitBtn">Send Message ✦</button>
+        <div class="form-success" id="formSuccess">
+          <span class="check">✅</span>
+          <h3>Message Sent!</h3>
+          <p>I'll get back to you on Discord shortly.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script>
     (function() {
       // --- SLIDER LOGIC ---
@@ -706,9 +892,8 @@
         window.open(url, '_blank');
       }
 
-      // --- EXPLORE PAGE (separate HTML in a new tab) ---
+      // --- EXPLORE PAGE (custom content) ---
       function openExplorePage() {
-        // Build a complete HTML document as a string
         const exploreHTML = `
         <!DOCTYPE html>
         <html lang="en">
@@ -734,7 +919,7 @@
               text-align: center;
             }
             .explore-card {
-              max-width: 700px;
+              max-width: 800px;
               background: white;
               padding: 4rem 3rem;
               border-radius: 64px;
@@ -745,33 +930,64 @@
               font-size: 3.2rem;
               font-weight: 700;
               letter-spacing: -0.02em;
-              margin-bottom: 1rem;
+              margin-bottom: 0.5rem;
               background: linear-gradient(135deg, #6c63ff, #a78bfa);
               -webkit-background-clip: text;
               -webkit-text-fill-color: transparent;
               background-clip: text;
             }
-            p {
-              font-size: 1.2rem;
-              color: #4a4a5e;
-              margin-bottom: 2rem;
+            .subtitle {
+              font-size: 1.1rem;
+              color: #6c63ff;
+              font-weight: 500;
+              margin-bottom: 1.5rem;
             }
-            .explore-features {
+            p {
+              font-size: 1.15rem;
+              color: #4a4a5e;
+              max-width: 600px;
+              margin: 0 auto 2rem;
+            }
+            .explore-grid {
               display: grid;
-              grid-template-columns: 1fr 1fr;
+              grid-template-columns: repeat(3, 1fr);
               gap: 1.5rem;
               margin: 2rem 0;
             }
-            .explore-features div {
+            .explore-item {
               background: #f5f3fe;
-              padding: 1.5rem;
-              border-radius: 24px;
-              font-weight: 500;
+              padding: 1.8rem 1rem;
+              border-radius: 28px;
+              transition: 0.2s;
             }
-            .explore-features div span {
-              font-size: 2rem;
+            .explore-item:hover {
+              transform: translateY(-4px);
+              box-shadow: 0 12px 24px -8px rgba(108,99,255,0.15);
+            }
+            .explore-item .icon {
+              font-size: 2.8rem;
               display: block;
-              margin-bottom: 0.3rem;
+              margin-bottom: 0.5rem;
+            }
+            .explore-item h4 {
+              font-weight: 600;
+              font-size: 1.1rem;
+              margin-bottom: 0.2rem;
+            }
+            .explore-item p {
+              font-size: 0.9rem;
+              color: #5a5a72;
+              margin: 0;
+            }
+            .explore-quote {
+              background: #f0edf9;
+              border-radius: 32px;
+              padding: 1.8rem 2rem;
+              margin: 2rem 0 1.5rem;
+              font-style: italic;
+              color: #2d2d44;
+              font-size: 1.1rem;
+              border-left: 4px solid #6c63ff;
             }
             .btn-back {
               display: inline-block;
@@ -782,7 +998,6 @@
               border-radius: 60px;
               font-weight: 600;
               transition: 0.2s;
-              margin-top: 1rem;
               border: none;
               cursor: pointer;
             }
@@ -790,35 +1005,162 @@
               background: #2f2f4a;
               transform: scale(1.02);
             }
-            @media (max-width: 500px) {
-              .explore-features { grid-template-columns: 1fr; }
+            @media (max-width: 600px) {
+              .explore-grid { grid-template-columns: 1fr 1fr; }
               .explore-card { padding: 2rem 1.5rem; }
-              h1 { font-size: 2.2rem; }
+              h1 { font-size: 2.4rem; }
+            }
+            @media (max-width: 400px) {
+              .explore-grid { grid-template-columns: 1fr; }
             }
           </style>
         </head>
         <body>
           <div class="explore-card">
             <h1>✦ Explore Vertex</h1>
-            <p>You've unlocked a world of structured design, beautiful motion, and endless possibilities.</p>
-            <div class="explore-features">
-              <div><span>🎨</span>Design System</div>
-              <div><span>⚡</span>Performance</div>
-              <div><span>📱</span>Responsive</div>
-              <div><span>🧩</span>Modular</div>
+            <div class="subtitle">Where structure meets creativity</div>
+            <p>Vertex is more than a design system — it's a philosophy. Every component, every interaction, every pixel is crafted with purpose.</p>
+
+            <div class="explore-grid">
+              <div class="explore-item">
+                <span class="icon">🎯</span>
+                <h4>Purpose-Driven</h4>
+                <p>Every element serves a clear function.</p>
+              </div>
+              <div class="explore-item">
+                <span class="icon">🌀</span>
+                <h4>Fluid Motion</h4>
+                <p>Animations that feel natural and responsive.</p>
+              </div>
+              <div class="explore-item">
+                <span class="icon">🧠</span>
+                <h4>Human-Centric</h4>
+                <p>Designed for real people, not just screens.</p>
+              </div>
+              <div class="explore-item">
+                <span class="icon">📐</span>
+                <h4>Perfect Grid</h4>
+                <p>Mathematical precision in every layout.</p>
+              </div>
+              <div class="explore-item">
+                <span class="icon">🌈</span>
+                <h4>Dynamic Color</h4>
+                <p>Palettes that adapt and inspire.</p>
+              </div>
+              <div class="explore-item">
+                <span class="icon">🚀</span>
+                <h4>Future-Ready</h4>
+                <p>Built for tomorrow's web standards.</p>
+              </div>
             </div>
-            <p style="font-size: 1rem; color: #6c63ff; font-weight: 500;">This is a dedicated Explore page — crafted just for you.</p>
+
+            <div class="explore-quote">
+              “Design is not just what it looks like and feels like. Design is how it works.” — Steve Jobs
+            </div>
+
+            <p style="font-size: 1rem; color: #6c63ff; font-weight: 500; margin-bottom: 1.5rem;">
+              This is the Vertex experience — clean, bold, and endlessly adaptable.
+            </p>
+
             <button class="btn-back" onclick="window.close();">Close this tab</button>
           </div>
         </body>
         </html>
         `;
 
-        // Use a data URI to open in a new tab (more reliable than blob)
         const encoded = encodeURIComponent(exploreHTML);
         const dataUri = 'data:text/html;charset=utf-8,' + encoded;
         window.open(dataUri, '_blank');
       }
+
+      // --- CONTACT MODAL (Discord Webhook) ---
+      const modal = document.getElementById('contactModal');
+      const modalClose = document.getElementById('modalClose');
+      const contactForm = document.getElementById('contactForm');
+      const formSubmitBtn = document.getElementById('formSubmitBtn');
+      const formError = document.getElementById('formError');
+      const formSuccess = document.getElementById('formSuccess');
+
+      const WEBHOOK_URL = 'https://discord.com/api/webhooks/1529051992369135626/w3y0XW0z1r4qLML6SwGqpatb05xsZzNkuENJkWvojfJYWzRlVPCU9-Kol0hCm_u3KF2Q';
+
+      function openModal() {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        // Reset form
+        contactForm.reset();
+        formError.style.display = 'none';
+        formSuccess.style.display = 'none';
+        formSubmitBtn.style.display = 'block';
+        formSubmitBtn.disabled = false;
+      }
+
+      function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      modalClose.addEventListener('click', closeModal);
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) closeModal();
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+      });
+
+      contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('userName').value.trim();
+        const email = document.getElementById('userEmail').value.trim();
+        const message = document.getElementById('userMessage').value.trim();
+
+        if (!name || !email || !message) {
+          formError.textContent = 'Please fill in all fields.';
+          formError.style.display = 'block';
+          return;
+        }
+
+        formSubmitBtn.disabled = true;
+        formSubmitBtn.textContent = 'Sending...';
+        formError.style.display = 'none';
+
+        const payload = {
+          embeds: [{
+            title: '📬 New Contact Form Submission',
+            color: 0x6c63ff,
+            fields: [
+              { name: '👤 Name', value: name, inline: true },
+              { name: '📧 Email', value: email, inline: true },
+              { name: '💬 Message', value: message, inline: false }
+            ],
+            footer: { text: 'Sent from Vertex website' },
+            timestamp: new Date().toISOString()
+          }]
+        };
+
+        try {
+          const response = await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (response.ok) {
+            formSubmitBtn.style.display = 'none';
+            formSuccess.style.display = 'block';
+            // Auto-close after 3 seconds
+            setTimeout(closeModal, 3000);
+          } else {
+            throw new Error('Webhook error');
+          }
+        } catch (err) {
+          formError.textContent = 'Failed to send message. Please try again.';
+          formError.style.display = 'block';
+          formSubmitBtn.disabled = false;
+          formSubmitBtn.textContent = 'Send Message ✦';
+        }
+      });
 
       // --- EVENT LISTENERS ---
       // Home: hide panel and scroll to top
@@ -880,19 +1222,19 @@
         openExplorePage();
       });
 
-      // Get started (nav) → goes to a generic page (not ChatGPT)
+      // Get started (nav) → opens contact modal
       document.getElementById('navCtaBtn').addEventListener('click', function() {
-        openInNewTab('https://example.com/get-started');
+        openModal();
       });
 
-      // Learn more → generic page
+      // Learn more → opens contact modal
       document.getElementById('heroSecondaryBtn').addEventListener('click', function() {
-        openInNewTab('https://example.com/learn-more');
+        openModal();
       });
 
-      // Start now (CTA) → ONLY this one goes to ChatGPT
+      // Start now (CTA) → opens contact modal
       document.getElementById('ctaMainBtn').addEventListener('click', function() {
-        openInNewTab('https://chatgpt.com/');
+        openModal();
       });
 
       // --- SOCIAL LINKS ---
