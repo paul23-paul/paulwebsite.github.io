@@ -546,6 +546,8 @@
       margin-top: 0.3rem;
       display: none;
     }
+
+    /* --- RESPONSIVE: Slider smaller on mobile --- */
     @media (max-width: 1024px) {
       .hero { gap: 2.5rem; padding: 2rem 0 3rem; }
       .nav-links { gap: 1.8rem; }
@@ -575,7 +577,7 @@
       .nav-links .btn-outline { align-self: flex-start; margin-top: 0.25rem; }
       .navbar { padding: 1rem 0; }
       .logo { font-size: 1.4rem; }
-      .hero { padding: 1rem 0 2rem; gap: 1.5rem; }
+      .hero { padding: 1rem 0 1.5rem; gap: 1.25rem; }
       .hero-content h1 { font-size: clamp(1.8rem, 7vw, 2.4rem); }
       .hero-actions { flex-direction: column; width: 100%; }
       .hero-actions .btn-primary, .hero-actions .btn-secondary {
@@ -584,10 +586,39 @@
         padding: 0.8rem 1.5rem;
         font-size: 0.95rem;
       }
-      .slider-wrapper { padding: 0.75rem; border-radius: 32px; }
-      .slider-container { border-radius: 24px; }
-      .slide-content { padding: 0.7rem 1.2rem; font-size: 1rem; }
-      .slider-btn { width: 40px; height: 40px; min-width: 40px; min-height: 40px; font-size: 1rem; }
+
+      /* --- SLIDER MUCH SMALLER ON MOBILE --- */
+      .slider-wrapper {
+        padding: 0.6rem;
+        border-radius: 28px;
+      }
+      .slider-container {
+        aspect-ratio: 16 / 9;
+        border-radius: 20px;
+        max-height: 220px;
+      }
+      .slide-content {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+        border-radius: 40px;
+      }
+      .slider-btn {
+        width: 34px; height: 34px;
+        min-width: 34px; min-height: 34px;
+        font-size: 0.85rem;
+      }
+      .slider-controls {
+        gap: 0.6rem;
+        margin-top: 0.75rem;
+      }
+      .dot {
+        width: 8px; height: 8px;
+        min-width: 8px; min-height: 8px;
+      }
+      .dot.active {
+        width: 18px;
+      }
+
       .card-grid { grid-template-columns: 1fr; gap: 1rem; margin: 1.5rem 0 2rem; }
       .service-card { padding: 1.5rem 1.25rem; border-radius: 28px; }
       .section-title { font-size: 1.6rem; margin: 1.5rem 0 1rem; }
@@ -604,21 +635,19 @@
       .footer { flex-direction: column; align-items: center; text-align: center; gap: 1rem; padding: 1.5rem 0 1rem; }
       .footer-links { gap: 1.25rem; justify-content: center; }
       .footer-links a { font-size: 0.9rem; }
-      .slider-controls { gap: 0.75rem; }
-      .dot { width: 10px; height: 10px; min-width: 10px; min-height: 10px; }
-      .dot.active { width: 22px; }
     }
     @media (max-width: 380px) {
       .container { padding: 0 0.75rem; }
       .info-panel .features-grid { grid-template-columns: 1fr; }
       .hero-content h1 { font-size: 1.6rem; }
       .modal { padding: 1.25rem 1rem; }
+      .slider-container { max-height: 180px; }
     }
     @media (max-height: 500px) and (orientation: landscape) {
       .hero { padding: 0.5rem 0 1.5rem; gap: 1rem; }
       .hero-content h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
       .slider-wrapper { padding: 0.5rem; }
-      .slider-container { aspect-ratio: 16 / 9; }
+      .slider-container { aspect-ratio: 16 / 9; max-height: 160px; }
       .cta-block { padding: 1.25rem 1.5rem; margin: 1rem 0 1.5rem; }
       .card-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin: 1rem 0 1.5rem; }
     }
@@ -1119,7 +1148,6 @@
         );
       });
 
-      // --- UPDATED PRICING PANEL (Payments + GCash) ---
       document.getElementById('navPricing').addEventListener('click', function(e) {
         e.preventDefault();
         showPanel(
