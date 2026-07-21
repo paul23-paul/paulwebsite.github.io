@@ -28,7 +28,6 @@
       padding: 0 1.5rem;
     }
 
-    /* --- NAVBAR --- */
     .navbar {
       display: flex;
       justify-content: space-between;
@@ -50,7 +49,6 @@
       background-clip: text;
     }
 
-    /* Hamburger */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -135,7 +133,6 @@
       color: white;
     }
 
-    /* --- HERO --- */
     .hero {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -201,7 +198,6 @@
       color: #6c63ff;
     }
 
-    /* --- SLIDER --- */
     .slider-wrapper {
       background: #f0edf9;
       border-radius: 48px;
@@ -254,6 +250,10 @@
     .slide-2 { background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=600&fit=crop&q=80'); }
     .slide-3 { background-image: url('https://images.unsplash.com/photo-1494526585095-c41746248156?w=800&h=600&fit=crop&q=80'); }
     .slide-4 { background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop&q=80'); }
+    .slide-5 { background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop&q=80'); }
+    .slide-6 { background-image: url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&h=600&fit=crop&q=80'); }
+    .slide-7 { background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=600&fit=crop&q=80'); }
+    .slide-8 { background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop&q=80'); }
 
     .slide-content {
       background: rgba(255,255,255,0.15);
@@ -333,7 +333,6 @@
       background: #6c63ff;
     }
 
-    /* --- SECTIONS --- */
     .section-title {
       font-size: clamp(1.8rem, 4vw, 2.4rem);
       font-weight: 600;
@@ -387,7 +386,6 @@
       font-size: 0.95rem;
     }
 
-    /* --- CTA --- */
     .cta-block {
       background: #1e1e2a;
       border-radius: 48px;
@@ -437,7 +435,6 @@
       transform: scale(1.02);
     }
 
-    /* --- FOOTER --- */
     .footer {
       border-top: 1px solid rgba(0,0,0,0.04);
       padding: 2rem 0 1.5rem;
@@ -472,7 +469,6 @@
       color: #6c63ff;
     }
 
-    /* --- INFO PANEL --- */
     .info-panel {
       display: none;
       background: white;
@@ -539,7 +535,6 @@
       color: #5a5a72;
     }
 
-    /* --- MODAL --- */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -700,9 +695,6 @@
       display: none;
     }
 
-    /* --- RESPONSIVE BREAKPOINTS --- */
-
-    /* Tablets & small laptops */
     @media (max-width: 1024px) {
       .hero {
         gap: 2.5rem;
@@ -713,7 +705,6 @@
       }
     }
 
-    /* Mobile & tablets */
     @media (max-width: 820px) {
       .hero {
         grid-template-columns: 1fr;
@@ -723,10 +714,6 @@
 
       .hero-content h1 {
         font-size: clamp(2rem, 6vw, 2.8rem);
-      }
-
-      .hero-content p {
-        max-width: 100%;
       }
 
       .slider-wrapper {
@@ -751,13 +738,11 @@
       }
     }
 
-    /* Mobile phones */
     @media (max-width: 640px) {
       .container {
         padding: 0 1rem;
       }
 
-      /* Hamburger visible */
       .hamburger {
         display: flex;
       }
@@ -941,7 +926,6 @@
       }
     }
 
-    /* Very small phones */
     @media (max-width: 380px) {
       .container {
         padding: 0 0.75rem;
@@ -960,7 +944,6 @@
       }
     }
 
-    /* Landscape phones */
     @media (max-height: 500px) and (orientation: landscape) {
       .hero {
         padding: 0.5rem 0 1.5rem;
@@ -1019,7 +1002,7 @@
 
     <section class="hero" id="homeSection">
       <div class="hero-content">
-        <h1>Beautiful <span>structure</span> <br />with motion</h1>
+        <h1>Build your own <span>Website</span> <br />with Vertex</h1>
         <div class="hero-actions">
           <button class="btn-primary" id="heroPrimaryBtn">Explore</button>
           <button class="btn-secondary" id="heroSecondaryBtn">Learn more</button>
@@ -1033,6 +1016,10 @@
             <div class="slide slide-2"><span class="slide-content">🌸 Visual story</span></div>
             <div class="slide slide-3"><span class="slide-content">🌿 Natural flow</span></div>
             <div class="slide slide-4"><span class="slide-content">☀️ Bold palette</span></div>
+            <div class="slide slide-5"><span class="slide-content">⚡ Tech &amp; innovation</span></div>
+            <div class="slide slide-6"><span class="slide-content">🏙️ Urban design</span></div>
+            <div class="slide slide-7"><span class="slide-content">🌀 Abstract flow</span></div>
+            <div class="slide slide-8"><span class="slide-content">🌌 Infinite space</span></div>
           </div>
         </div>
 
@@ -1043,13 +1030,17 @@
             <button class="dot" data-index="1" aria-label="Slide 2"></button>
             <button class="dot" data-index="2" aria-label="Slide 3"></button>
             <button class="dot" data-index="3" aria-label="Slide 4"></button>
+            <button class="dot" data-index="4" aria-label="Slide 5"></button>
+            <button class="dot" data-index="5" aria-label="Slide 6"></button>
+            <button class="dot" data-index="6" aria-label="Slide 7"></button>
+            <button class="dot" data-index="7" aria-label="Slide 8"></button>
           </div>
           <button class="slider-btn" id="nextSlide" aria-label="Next slide">→</button>
         </div>
       </div>
     </section>
 
-    <h2 class="section-title">Built with <span>care</span> &amp; precision</h2>
+    <h2 class="section-title">Build your own website with <span>care</span> &amp; precision</h2>
     <div class="card-grid">
       <div class="service-card">
         <span class="emoji-lg">🌿</span>
@@ -1124,7 +1115,6 @@
 
   <script>
     (function() {
-      // --- HAMBURGER MENU ---
       const hamburger = document.getElementById('hamburger');
       const navLinks = document.getElementById('navLinks');
 
@@ -1133,7 +1123,6 @@
         navLinks.classList.toggle('open');
       });
 
-      // Close menu when a link is clicked (mobile)
       document.querySelectorAll('.nav-links a, .nav-links .btn-outline').forEach(item => {
         item.addEventListener('click', function() {
           hamburger.classList.remove('active');
@@ -1141,7 +1130,6 @@
         });
       });
 
-      // --- SLIDER LOGIC ---
       const track = document.getElementById('sliderTrack');
       const slides = document.querySelectorAll('.slide');
       const dots = document.querySelectorAll('.dot');
@@ -1192,7 +1180,6 @@
 
       startAutoSlide();
 
-      // --- NAVIGATION PANELS ---
       const infoPanel = document.getElementById('infoPanel');
       const panelTitle = document.getElementById('panelTitle');
       const panelDesc = document.getElementById('panelDesc');
@@ -1210,7 +1197,6 @@
         window.open(url, '_blank');
       }
 
-      // --- EXPLORE PAGE ---
       function openExplorePage() {
         const exploreHTML = `
         <!DOCTYPE html>
@@ -1508,7 +1494,6 @@
         window.open(dataUri, '_blank');
       }
 
-      // --- CONTACT MODAL (Discord Webhook) ---
       const modal = document.getElementById('contactModal');
       const modalClose = document.getElementById('modalClose');
       const contactForm = document.getElementById('contactForm');
@@ -1596,7 +1581,6 @@
         }
       });
 
-      // --- NAVIGATION EVENTS ---
       document.getElementById('navHome').addEventListener('click', function(e) {
         e.preventDefault();
         infoPanel.classList.remove('active');
@@ -1661,7 +1645,6 @@
         );
       });
 
-      // --- BUTTON ACTIONS ---
       document.getElementById('heroPrimaryBtn').addEventListener('click', function() {
         openExplorePage();
       });
@@ -1678,7 +1661,6 @@
         openModal();
       });
 
-      // --- SOCIAL LINKS ---
       document.getElementById('footerTwitter').addEventListener('click', function(e) {
         e.preventDefault();
         openInNewTab('https://twitter.com/yourprofile');
