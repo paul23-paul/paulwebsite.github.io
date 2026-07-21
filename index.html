@@ -19,6 +19,7 @@
       background: #faf9f6;
       color: #1e1e2a;
       line-height: 1.5;
+      transition: background 0.3s;
     }
 
     .container {
@@ -60,6 +61,22 @@
       color: inherit;
       transition: color 0.2s;
       cursor: pointer;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #6c63ff;
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
     }
 
     .nav-links a:hover {
@@ -396,6 +413,72 @@
       color: #6c63ff;
     }
 
+    /* Dynamic content panels */
+    .info-panel {
+      display: none;
+      background: white;
+      border-radius: 48px;
+      padding: 3rem;
+      margin: 2rem 0 3rem;
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.06);
+      animation: fadeSlide 0.4s ease;
+    }
+
+    .info-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .info-panel h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #6c63ff, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .info-panel p {
+      color: #4a4a5e;
+      font-size: 1.1rem;
+      max-width: 700px;
+    }
+
+    .info-panel .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .info-panel .feature-item {
+      background: #f5f3fe;
+      padding: 1.5rem;
+      border-radius: 24px;
+      text-align: center;
+    }
+
+    .info-panel .feature-item .icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .info-panel .feature-item h4 {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .info-panel .feature-item p {
+      font-size: 0.9rem;
+      color: #5a5a72;
+    }
+
     @media (max-width: 800px) {
       .hero {
         grid-template-columns: 1fr;
@@ -419,6 +502,9 @@
       }
       .cta-block h2 {
         margin-bottom: 1.2rem;
+      }
+      .info-panel {
+        padding: 1.5rem;
       }
     }
 
@@ -453,7 +539,14 @@
       <button class="btn-outline" id="navCtaBtn">Get started</button>
     </nav>
 
-    <section class="hero">
+    <!-- Dynamic Info Panel -->
+    <div id="infoPanel" class="info-panel">
+      <h2 id="panelTitle">Welcome</h2>
+      <p id="panelDesc">Select a menu item to explore more.</p>
+      <div id="panelContent"></div>
+    </div>
+
+    <section class="hero" id="homeSection">
       <div class="hero-content">
         <h1>Beautiful <span>structure</span> <br />with motion</h1>
         <p>Interactive slider, polished buttons, and a layout that feels alive — all with clean, functional design.</p>
@@ -591,32 +684,140 @@
 
       startAutoSlide();
 
-      // --- NAVIGATION LINKS ---
+      // --- NAVIGATION LINKS with beautiful panels ---
+      const infoPanel = document.getElementById('infoPanel');
+      const panelTitle = document.getElementById('panelTitle');
+      const panelDesc = document.getElementById('panelDesc');
+      const panelContent = document.getElementById('panelContent');
+
+      function showPanel(title, desc, contentHTML) {
+        infoPanel.classList.add('active');
+        panelTitle.textContent = title;
+        panelDesc.textContent = desc;
+        panelContent.innerHTML = contentHTML || '';
+        // scroll to panel
+        infoPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
       function openInNewTab(url) {
         window.open(url, '_blank');
       }
 
+      // Home - show the hero section again and hide panel
       document.getElementById('navHome').addEventListener('click', function(e) {
         e.preventDefault();
-        openInNewTab('https://example.com/home');
+        infoPanel.classList.remove('active');
+        document.getElementById('homeSection').scrollIntoView({ behavior: 'smooth' });
       });
 
+      // Features - beautiful detailed panel
       document.getElementById('navFeatures').addEventListener('click', function(e) {
         e.preventDefault();
-        openInNewTab('https://example.com/features');
+        showPanel(
+          '✨ Powerful Features',
+          'Everything you need to build stunning digital experiences.',
+          `
+            <div class="features-grid">
+              <div class="feature-item">
+                <span class="icon">🎨</span>
+                <h4>Design System</h4>
+                <p>Consistent components, variables, and tokens.</p>
+              </div>
+              <div class="feature-item">
+                <span class="icon">⚡</span>
+                <h4>Performance</h4>
+                <p>Optimized for speed and smooth interactions.</p>
+              </div>
+              <div class="feature-item">
+                <span class="icon">🔒</span>
+                <h4>Security</h4>
+                <p>Built with best practices to keep data safe.</p>
+              </div>
+              <div class="feature-item">
+                <span class="icon">🌐</span>
+                <h4>Global Ready</h4>
+                <p>Multi-language and accessibility support.</p>
+              </div>
+              <div class="feature-item">
+                <span class="icon">📱</span>
+                <h4>Responsive</h4>
+                <p>Looks perfect on every device and screen.</p>
+              </div>
+              <div class="feature-item">
+                <span class="icon">🧩</span>
+                <h4>Modular</h4>
+                <p>Plug-and-play components for rapid development.</p>
+              </div>
+            </div>
+          `
+        );
       });
 
+      // Pricing - beautiful panel
       document.getElementById('navPricing').addEventListener('click', function(e) {
         e.preventDefault();
-        openInNewTab('https://example.com/pricing');
+        showPanel(
+          '💎 Simple Pricing',
+          'Choose a plan that fits your needs. No hidden fees.',
+          `
+            <div class="features-grid">
+              <div class="feature-item" style="background:#f0edff;">
+                <span class="icon">🆓</span>
+                <h4>Starter</h4>
+                <p style="font-size:1.4rem; font-weight:700; color:#1e1e2a;">$0</p>
+                <p>Basic features for personal projects.</p>
+              </div>
+              <div class="feature-item" style="background:#e8e4ff;">
+                <span class="icon">🚀</span>
+                <h4>Pro</h4>
+                <p style="font-size:1.4rem; font-weight:700; color:#1e1e2a;">$29/mo</p>
+                <p>Advanced tools for professionals.</p>
+              </div>
+              <div class="feature-item" style="background:#ddd8ff;">
+                <span class="icon">🏢</span>
+                <h4>Enterprise</h4>
+                <p style="font-size:1.4rem; font-weight:700; color:#1e1e2a;">Custom</p>
+                <p>Full control, dedicated support, and scale.</p>
+              </div>
+            </div>
+          `
+        );
       });
 
+      // About - beautiful panel
       document.getElementById('navAbout').addEventListener('click', function(e) {
         e.preventDefault();
-        openInNewTab('https://example.com/about');
+        showPanel(
+          '🌟 About Vertex',
+          'We’re a team of designers, engineers, and dreamers.',
+          `
+            <div class="features-grid">
+              <div class="feature-item">
+                <span class="icon">🎯</span>
+                <h4>Our Mission</h4>
+                <p>To make beautiful, structured design accessible to everyone.</p>
+              </div>
+              <div class="feature-item">
+                <span class="icon">💡</span>
+                <h4>Our Values</h4>
+                <p>Clarity, simplicity, and continuous improvement.</p>
+              </div>
+              <div class="feature-item">
+                <span class="icon">🤝</span>
+                <h4>Community</h4>
+                <p>Open source, collaborative, and always evolving.</p>
+              </div>
+            </div>
+            <p style="margin-top:1.5rem; color:#6c63ff; font-weight:500;">Built with ❤️ by passionate creators.</p>
+          `
+        );
       });
 
       // --- GET STARTED BUTTONS ---
+      function openInNewTab(url) {
+        window.open(url, '_blank');
+      }
+
       document.getElementById('navCtaBtn').addEventListener('click', function() {
         openInNewTab('https://example.com/get-started');
       });
@@ -633,10 +834,10 @@
         openInNewTab('https://example.com/start-now');
       });
 
-      // --- SOCIAL LINKS ---
-      document.getElementById('footerInstagram').addEventListener('click', function(e) {
+      // --- SOCIAL LINKS (your custom links) ---
+      document.getElementById('footerTwitter').addEventListener('click', function(e) {
         e.preventDefault();
-        openInNewTab('https://www.instagram.com/stp_actn/');
+        openInNewTab('https://twitter.com/yourprofile');
       });
 
       document.getElementById('footerGithub').addEventListener('click', function(e) {
@@ -644,9 +845,9 @@
         openInNewTab('https://github.com/paul23-paul');
       });
 
-      document.getElementById('footerFacebook').addEventListener('click', function(e) {
+      document.getElementById('footerDribbble').addEventListener('click', function(e) {
         e.preventDefault();
-        openInNewTab('https://www.facebook.com/brent.correos.2024/');
+        openInNewTab('https://dribbble.com/yourprofile');
       });
 
       document.getElementById('footerContact').addEventListener('click', function(e) {
