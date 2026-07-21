@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nova · interactive slider</title>
+  <title>Vertex · interactive slider</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
@@ -59,6 +59,7 @@
       text-decoration: none;
       color: inherit;
       transition: color 0.2s;
+      cursor: pointer;
     }
 
     .nav-links a:hover {
@@ -172,7 +173,7 @@
 
     .slider-track {
       display: flex;
-      transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       width: 100%;
       height: 100%;
     }
@@ -180,17 +181,13 @@
     .slide {
       min-width: 100%;
       height: 100%;
-      object-fit: cover;
-      display: block;
-      background: #d9d2e8;
-      font-size: 2rem;
-      color: #2d2d44;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 500;
       background-size: cover;
       background-position: center;
+      position: relative;
     }
 
     .slide-1 { background: linear-gradient(145deg, #a78bfa, #7c6af0); }
@@ -392,6 +389,7 @@
       color: #3d3d55;
       font-weight: 500;
       transition: color 0.2s;
+      cursor: pointer;
     }
 
     .footer-links a:hover {
@@ -445,12 +443,12 @@
 <body>
   <div class="container">
     <nav class="navbar">
-      <div class="logo">✦ Nova</div>
+      <div class="logo">✦ Vertex</div>
       <div class="nav-links">
-        <a href="#">Home</a>
-        <a href="#">Features</a>
-        <a href="#">Pricing</a>
-        <a href="#">About</a>
+        <a href="#" id="navHome">Home</a>
+        <a href="#" id="navFeatures">Features</a>
+        <a href="#" id="navPricing">Pricing</a>
+        <a href="#" id="navAbout">About</a>
       </div>
       <button class="btn-outline" id="navCtaBtn">Get started</button>
     </nav>
@@ -519,20 +517,21 @@
 
     <footer class="footer">
       <div class="footer-col">
-        <p style="font-weight: 600; color: #1e1e2a;">✦ Nova</p>
+        <p style="font-weight: 600; color: #1e1e2a;">✦ Vertex</p>
         <p style="margin-top: 0.3rem;">© 2026 · interactive &amp; structured</p>
       </div>
       <div class="footer-links">
-        <a href="#">Twitter</a>
-        <a href="#">GitHub</a>
-        <a href="#">Dribbble</a>
-        <a href="#">Contact</a>
+        <a href="#" id="footerTwitter">Twitter</a>
+        <a href="#" id="footerGithub">GitHub</a>
+        <a href="#" id="footerDribbble">Dribbble</a>
+        <a href="#" id="footerContact">Contact</a>
       </div>
     </footer>
   </div>
 
   <script>
     (function() {
+      // --- SLIDER LOGIC ---
       const track = document.getElementById('sliderTrack');
       const slides = document.querySelectorAll('.slide');
       const dots = document.querySelectorAll('.dot');
@@ -540,6 +539,7 @@
       const nextBtn = document.getElementById('nextSlide');
       let currentIndex = 0;
       const totalSlides = slides.length;
+      let autoSlideInterval;
 
       function updateSlider(index) {
         if (index < 0) index = totalSlides - 1;
@@ -553,6 +553,7 @@
 
       function goToSlide(index) {
         updateSlider(index);
+        resetAutoSlide();
       }
 
       function nextSlide() {
@@ -561,6 +562,17 @@
 
       function prevSlide() {
         goToSlide(currentIndex - 1);
+      }
+
+      function startAutoSlide() {
+        autoSlideInterval = setInterval(() => {
+          nextSlide();
+        }, 3500);
+      }
+
+      function resetAutoSlide() {
+        clearInterval(autoSlideInterval);
+        startAutoSlide();
       }
 
       prevBtn.addEventListener('click', prevSlide);
@@ -577,21 +589,71 @@
         if (e.key === 'ArrowRight') nextSlide();
       });
 
+      startAutoSlide();
+
+      // --- NAVIGATION LINKS ---
+      function openInNewTab(url) {
+        window.open(url, '_blank');
+      }
+
+      document.getElementById('navHome').addEventListener('click', function(e) {
+        e.preventDefault();
+        openInNewTab('https://example.com/home');
+      });
+
+      document.getElementById('navFeatures').addEventListener('click', function(e) {
+        e.preventDefault();
+        openInNewTab('https://example.com/features');
+      });
+
+      document.getElementById('navPricing').addEventListener('click', function(e) {
+        e.preventDefault();
+        openInNewTab('https://example.com/pricing');
+      });
+
+      document.getElementById('navAbout').addEventListener('click', function(e) {
+        e.preventDefault();
+        openInNewTab('https://example.com/about');
+      });
+
+      // --- GET STARTED BUTTONS ---
       document.getElementById('navCtaBtn').addEventListener('click', function() {
-        alert('✨ Welcome! Let’s get started on your beautiful journey.');
+        openInNewTab('https://example.com/get-started');
       });
 
       document.getElementById('heroPrimaryBtn').addEventListener('click', function() {
-        alert('🚀 Explore the structured world of Nova.');
+        openInNewTab('https://example.com/explore');
       });
 
       document.getElementById('heroSecondaryBtn').addEventListener('click', function() {
-        alert('📖 Learn more about our design philosophy.');
+        openInNewTab('https://example.com/learn-more');
       });
 
       document.getElementById('ctaMainBtn').addEventListener('click', function() {
-        alert('🌟 Start building something beautiful today.');
+        openInNewTab('https://example.com/start-now');
       });
+
+      // --- SOCIAL LINKS ---
+      document.getElementById('footerTwitter').addEventListener('click', function(e) {
+        e.preventDefault();
+        openInNewTab('https://twitter.com/yourprofile');
+      });
+
+      document.getElementById('footerGithub').addEventListener('click', function(e) {
+        e.preventDefault();
+        openInNewTab('https://github.com/yourprofile');
+      });
+
+      document.getElementById('footerDribbble').addEventListener('click', function(e) {
+        e.preventDefault();
+        openInNewTab('https://dribbble.com/yourprofile');
+      });
+
+      document.getElementById('footerContact').addEventListener('click', function(e) {
+        e.preventDefault();
+        openInNewTab('https://example.com/contact');
+      });
+
     })();
   </script>
 </body>
