@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
   <style>
+    /* main styles - same as before */
     * {
       margin: 0;
       padding: 0;
@@ -716,6 +717,118 @@
         window.open(url, '_blank');
       }
 
+      // --- Function to create the Explore page ---
+      function openExplorePage() {
+        const exploreHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explore · Vertex</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #faf9f6;
+      color: #1e1e2a;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+      text-align: center;
+    }
+    .explore-card {
+      max-width: 700px;
+      background: white;
+      padding: 4rem 3rem;
+      border-radius: 64px;
+      box-shadow: 0 30px 60px -20px rgba(0,0,0,0.15);
+      border: 1px solid rgba(0,0,0,0.02);
+    }
+    h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #6c63ff, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    p {
+      font-size: 1.2rem;
+      color: #4a4a5e;
+      margin-bottom: 2rem;
+    }
+    .explore-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .explore-features div {
+      background: #f5f3fe;
+      padding: 1.5rem;
+      border-radius: 24px;
+      font-weight: 500;
+    }
+    .explore-features div span {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .btn-back {
+      display: inline-block;
+      background: #1e1e2a;
+      color: white;
+      text-decoration: none;
+      padding: 0.9rem 2.5rem;
+      border-radius: 60px;
+      font-weight: 600;
+      transition: 0.2s;
+      margin-top: 1rem;
+    }
+    .btn-back:hover {
+      background: #2f2f4a;
+      transform: scale(1.02);
+    }
+    @media (max-width: 500px) {
+      .explore-features { grid-template-columns: 1fr; }
+      .explore-card { padding: 2rem 1.5rem; }
+      h1 { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="explore-card">
+    <h1>✦ Explore Vertex</h1>
+    <p>You've unlocked a world of structured design, beautiful motion, and endless possibilities.</p>
+    <div class="explore-features">
+      <div><span>🎨</span>Design System</div>
+      <div><span>⚡</span>Performance</div>
+      <div><span>📱</span>Responsive</div>
+      <div><span>🧩</span>Modular</div>
+    </div>
+    <p style="font-size: 1rem; color: #6c63ff; font-weight: 500;">This is a dedicated Explore page — crafted just for you.</p>
+    <a href="#" class="btn-back" onclick="window.close(); return false;">Close this tab</a>
+  </div>
+</body>
+</html>`;
+        // Create blob and open new tab
+        const blob = new Blob([exploreHTML], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        window.open(url, '_blank');
+        // Revoke after a short delay to free memory
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }
+
+      // --- Event listeners for buttons ---
       document.getElementById('navHome').addEventListener('click', function(e) {
         e.preventDefault();
         infoPanel.classList.remove('active');
@@ -727,40 +840,14 @@
         showPanel(
           '✨ Powerful Features',
           'Everything you need to build stunning digital experiences.',
-          `
-            <div class="features-grid">
-              <div class="feature-item">
-                <span class="icon">🎨</span>
-                <h4>Design System</h4>
-                <p>Consistent components, variables, and tokens.</p>
-              </div>
-              <div class="feature-item">
-                <span class="icon">⚡</span>
-                <h4>Performance</h4>
-                <p>Optimized for speed and smooth interactions.</p>
-              </div>
-              <div class="feature-item">
-                <span class="icon">🔒</span>
-                <h4>Security</h4>
-                <p>Built with best practices to keep data safe.</p>
-              </div>
-              <div class="feature-item">
-                <span class="icon">🌐</span>
-                <h4>Global Ready</h4>
-                <p>Multi-language and accessibility support.</p>
-              </div>
-              <div class="feature-item">
-                <span class="icon">📱</span>
-                <h4>Responsive</h4>
-                <p>Looks perfect on every device and screen.</p>
-              </div>
-              <div class="feature-item">
-                <span class="icon">🧩</span>
-                <h4>Modular</h4>
-                <p>Plug-and-play components for rapid development.</p>
-              </div>
-            </div>
-          `
+          \`<div class="features-grid">
+              <div class="feature-item"><span class="icon">🎨</span><h4>Design System</h4><p>Consistent components, variables, and tokens.</p></div>
+              <div class="feature-item"><span class="icon">⚡</span><h4>Performance</h4><p>Optimized for speed and smooth interactions.</p></div>
+              <div class="feature-item"><span class="icon">🔒</span><h4>Security</h4><p>Built with best practices to keep data safe.</p></div>
+              <div class="feature-item"><span class="icon">🌐</span><h4>Global Ready</h4><p>Multi-language and accessibility support.</p></div>
+              <div class="feature-item"><span class="icon">📱</span><h4>Responsive</h4><p>Looks perfect on every device and screen.</p></div>
+              <div class="feature-item"><span class="icon">🧩</span><h4>Modular</h4><p>Plug-and-play components for rapid development.</p></div>
+            </div>\`
         );
       });
 
@@ -769,28 +856,11 @@
         showPanel(
           '💎 Simple Pricing',
           'Choose a plan that fits your needs. No hidden fees.',
-          `
-            <div class="features-grid">
-              <div class="feature-item" style="background:#f0edff;">
-                <span class="icon">🆓</span>
-                <h4>Starter</h4>
-                <p style="font-size:1.4rem; font-weight:700; color:#1e1e2a;">$0</p>
-                <p>Basic features for personal projects.</p>
-              </div>
-              <div class="feature-item" style="background:#e8e4ff;">
-                <span class="icon">🚀</span>
-                <h4>Pro</h4>
-                <p style="font-size:1.4rem; font-weight:700; color:#1e1e2a;">$29/mo</p>
-                <p>Advanced tools for professionals.</p>
-              </div>
-              <div class="feature-item" style="background:#ddd8ff;">
-                <span class="icon">🏢</span>
-                <h4>Enterprise</h4>
-                <p style="font-size:1.4rem; font-weight:700; color:#1e1e2a;">Custom</p>
-                <p>Full control, dedicated support, and scale.</p>
-              </div>
-            </div>
-          `
+          \`<div class="features-grid">
+              <div class="feature-item" style="background:#f0edff;"><span class="icon">🆓</span><h4>Starter</h4><p style="font-size:1.4rem; font-weight:700; color:#1e1e2a;">$0</p><p>Basic features for personal projects.</p></div>
+              <div class="feature-item" style="background:#e8e4ff;"><span class="icon">🚀</span><h4>Pro</h4><p style="font-size:1.4rem; font-weight:700; color:#1e1e2a;">$29/mo</p><p>Advanced tools for professionals.</p></div>
+              <div class="feature-item" style="background:#ddd8ff;"><span class="icon">🏢</span><h4>Enterprise</h4><p style="font-size:1.4rem; font-weight:700; color:#1e1e2a;">Custom</p><p>Full control, dedicated support, and scale.</p></div>
+            </div>\`
         );
       });
 
@@ -799,35 +869,23 @@
         showPanel(
           '🌟 About Vertex',
           'We’re a team of designers, engineers, and dreamers.',
-          `
-            <div class="features-grid">
-              <div class="feature-item">
-                <span class="icon">🎯</span>
-                <h4>Our Mission</h4>
-                <p>To make beautiful, structured design accessible to everyone.</p>
-              </div>
-              <div class="feature-item">
-                <span class="icon">💡</span>
-                <h4>Our Values</h4>
-                <p>Clarity, simplicity, and continuous improvement.</p>
-              </div>
-              <div class="feature-item">
-                <span class="icon">🤝</span>
-                <h4>Community</h4>
-                <p>Open source, collaborative, and always evolving.</p>
-              </div>
+          \`<div class="features-grid">
+              <div class="feature-item"><span class="icon">🎯</span><h4>Our Mission</h4><p>To make beautiful, structured design accessible to everyone.</p></div>
+              <div class="feature-item"><span class="icon">💡</span><h4>Our Values</h4><p>Clarity, simplicity, and continuous improvement.</p></div>
+              <div class="feature-item"><span class="icon">🤝</span><h4>Community</h4><p>Open source, collaborative, and always evolving.</p></div>
             </div>
-            <p style="margin-top:1.5rem; color:#6c63ff; font-weight:500;">Built with ❤️ by passionate creators.</p>
-          `
+            <p style="margin-top:1.5rem; color:#6c63ff; font-weight:500;">Built with ❤️ by passionate creators.</p>\`
         );
       });
 
-      // --- GET STARTED BUTTONS ---
-      document.getElementById('navCtaBtn').addEventListener('click', function() {
-        openInNewTab('https://chatgpt.com/');
+      // --- Button actions ---
+      // Explore -> opens the custom Explore page
+      document.getElementById('heroPrimaryBtn').addEventListener('click', function() {
+        openExplorePage();
       });
 
-      document.getElementById('heroPrimaryBtn').addEventListener('click', function() {
+      // Other buttons -> ChatGPT
+      document.getElementById('navCtaBtn').addEventListener('click', function() {
         openInNewTab('https://chatgpt.com/');
       });
 
@@ -839,7 +897,7 @@
         openInNewTab('https://chatgpt.com/');
       });
 
-      // --- SOCIAL LINKS ---
+      // --- Social links ---
       document.getElementById('footerTwitter').addEventListener('click', function(e) {
         e.preventDefault();
         openInNewTab('https://twitter.com/yourprofile');
