@@ -189,9 +189,19 @@
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.3);
+      background: rgba(0,0,0,0.35);
       z-index: 1;
     }
+    /* Slide images - one per slide, matching the text */
+    .slide-1 { background-image: url('https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=800&h=450&fit=crop&q=80'); }
+    .slide-2 { background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=450&fit=crop&q=80'); }
+    .slide-3 { background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=450&fit=crop&q=80'); }
+    .slide-4 { background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=450&fit=crop&q=80'); }
+    .slide-5 { background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=450&fit=crop&q=80'); }
+    .slide-6 { background-image: url('https://images.unsplash.com/photo-1523800503107-5bc3ba2a6f81?w=800&h=450&fit=crop&q=80'); }
+    .slide-7 { background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=450&fit=crop&q=80'); }
+    .slide-8 { background-image: url('https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=800&h=450&fit=crop&q=80'); }
+
     .slide-content {
       background: rgba(255,255,255,0.12);
       backdrop-filter: blur(8px);
@@ -341,7 +351,6 @@
     }
     .cta-btn:hover { background: #f0edff; transform: scale(1.02); }
 
-    /* --- FOOTER WITH QR --- */
     .footer {
       border-top: 1px solid rgba(0,0,0,0.04);
       padding: 2rem 0 1.5rem;
@@ -371,7 +380,6 @@
     }
     .footer-links a:hover { color: #6c63ff; }
 
-    /* QR Code in footer */
     .footer-qr {
       display: flex;
       align-items: center;
@@ -386,9 +394,7 @@
       transition: transform 0.2s;
       cursor: pointer;
     }
-    .footer-qr img:hover {
-      transform: scale(1.05);
-    }
+    .footer-qr img:hover { transform: scale(1.05); }
     .footer-qr .qr-label {
       font-size: 0.7rem;
       color: #9090aa;
@@ -690,14 +696,14 @@
       <div class="slider-wrapper">
         <div class="slider-container" id="sliderContainer">
           <div class="slider-track" id="sliderTrack">
-            <div class="slide slide-1"><span class="slide-content">✦ Pick a Template</span></div>
-            <div class="slide slide-2"><span class="slide-content">🎨 Customize with Ease</span></div>
-            <div class="slide slide-3"><span class="slide-content">✍️ Create Engaging Content</span></div>
-            <div class="slide slide-4"><span class="slide-content">📈 Optimize for SEO</span></div>
-            <div class="slide slide-5"><span class="slide-content">🚀 Launch Your Site</span></div>
-            <div class="slide slide-6"><span class="slide-content">📱 Fully Responsive</span></div>
-            <div class="slide slide-7"><span class="slide-content">🛒 Sell Online</span></div>
-            <div class="slide slide-8"><span class="slide-content">💬 Reliable Support</span></div>
+            <div class="slide slide-1"><span class="slide-content">Pick a Template</span></div>
+            <div class="slide slide-2"><span class="slide-content">Customize with Ease</span></div>
+            <div class="slide slide-3"><span class="slide-content">Create Engaging Content</span></div>
+            <div class="slide slide-4"><span class="slide-content">Optimize for SEO</span></div>
+            <div class="slide slide-5"><span class="slide-content">Launch Your Site</span></div>
+            <div class="slide slide-6"><span class="slide-content">Fully Responsive</span></div>
+            <div class="slide slide-7"><span class="slide-content">Sell Online</span></div>
+            <div class="slide slide-8"><span class="slide-content">Reliable Support</span></div>
           </div>
         </div>
         <div class="slider-controls">
@@ -756,7 +762,6 @@
         <a href="#" id="footerGithub">GitHub</a>
         <a href="#" id="footerFacebook">Facebook</a>
         <a href="#" id="footerContact">Contact</a>
-        <!-- QR Code -->
         <div class="footer-qr">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DdQw4w9WgXcQ%26list%3DRDdQw4w9WgXcQ%26start_radio%3D1" alt="QR Code" title="Scan to watch" />
           <span class="qr-label">Scan</span>
