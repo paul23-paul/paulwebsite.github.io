@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
   <style>
+    /* all styles unchanged from previous version */
     * {
       margin: 0;
       padding: 0;
@@ -890,7 +891,7 @@
         window.open(url, '_blank');
       }
 
-      // --- EXPLORE PAGE (impressive microsite) ---
+      // --- EXPLORE PAGE ---
       function openExplorePage() {
         const exploreHTML = `
         <!DOCTYPE html>
@@ -1299,24 +1300,41 @@
         );
       });
 
+      // --- UPDATED PRICING PANEL ---
       document.getElementById('navPricing').addEventListener('click', function(e) {
         e.preventDefault();
         showPanel(
-          '💎 Simple Pricing',
-          'Choose a plan that fits your needs.',
+          '💎 Crypto Payments',
+          'Pay with your preferred cryptocurrency.',
           `<div class="features-grid">
-            <div class="feature-item" style="background:#f0edff;"><span class="icon">🆓</span><h4>Starter</h4><p style="font-size:1.4rem;font-weight:700;">$0</p><p>Basic features for personal projects.</p></div>
-            <div class="feature-item" style="background:#e8e4ff;"><span class="icon">🚀</span><h4>Pro</h4><p style="font-size:1.4rem;font-weight:700;">$29/mo</p><p>Advanced tools for professionals.</p></div>
-            <div class="feature-item" style="background:#ddd8ff;"><span class="icon">🏢</span><h4>Enterprise</h4><p style="font-size:1.4rem;font-weight:700;">Custom</p><p>Full control and dedicated support.</p></div>
+            <div class="feature-item" style="background:#f0edff;">
+              <span class="icon">₿</span>
+              <h4>Bitcoin (BTC)</h4>
+              <p style="font-size:1.4rem; font-weight:700; color:#1e1e2a;">1 BTC</p>
+              <p style="font-size:0.8rem; word-break:break-all; color:#5a5a72;">bc1qxns8mcaccejwwkq5mu650dnqel83znvg0gu6e9</p>
+            </div>
+            <div class="feature-item" style="background:#e8e4ff;">
+              <span class="icon">⟠</span>
+              <h4>Ethereum (ETH)</h4>
+              <p style="font-size:1.4rem; font-weight:700; color:#1e1e2a;">1 ETH</p>
+              <p style="font-size:0.8rem; word-break:break-all; color:#5a5a72;">0x16f14e0871b6080b0730314b9665afcDeB6cdD2B</p>
+            </div>
+            <div class="feature-item" style="background:#ddd8ff;">
+              <span class="icon">Ł</span>
+              <h4>Litecoin (LTC)</h4>
+              <p style="font-size:1.4rem; font-weight:700; color:#1e1e2a;">1 LTC</p>
+              <p style="font-size:0.8rem; word-break:break-all; color:#5a5a72;">LffPffBe1e7SRXyCJMur1aSqt7p8fv3feF</p>
+            </div>
           </div>`
         );
       });
 
+      // --- UPDATED ABOUT PANEL ---
       document.getElementById('navAbout').addEventListener('click', function(e) {
         e.preventDefault();
         showPanel(
           '🌟 About Vertex',
-          'We’re a team of designers, engineers, and dreamers.',
+          'One man only',
           `<div class="features-grid">
             <div class="feature-item"><span class="icon">🎯</span><h4>Our Mission</h4><p>Beautiful, structured design for everyone.</p></div>
             <div class="feature-item"><span class="icon">💡</span><h4>Our Values</h4><p>Clarity, simplicity, improvement.</p></div>
