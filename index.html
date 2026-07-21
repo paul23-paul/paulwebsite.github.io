@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
   <style>
-    /* main styles - same as before */
     * {
       margin: 0;
       padding: 0;
@@ -20,7 +19,6 @@
       background: #faf9f6;
       color: #1e1e2a;
       line-height: 1.5;
-      transition: background 0.3s;
     }
 
     .container {
@@ -428,7 +426,7 @@
       color: #6c63ff;
     }
 
-    /* Dynamic content panels */
+    /* Dynamic info panel */
     .info-panel {
       display: none;
       background: white;
@@ -554,7 +552,7 @@
       <button class="btn-outline" id="navCtaBtn">Get started</button>
     </nav>
 
-    <!-- Dynamic Info Panel -->
+    <!-- Info Panel -->
     <div id="infoPanel" class="info-panel">
       <h2 id="panelTitle">Welcome</h2>
       <p id="panelDesc">Select a menu item to explore more.</p>
@@ -564,7 +562,7 @@
     <section class="hero" id="homeSection">
       <div class="hero-content">
         <h1>Beautiful <span>structure</span> <br />with motion</h1>
-        <p>Interactive slider, polished buttons, and a layout that feels alive — all with clean, functional design.</p>
+        <p>Interactive slider, polished buttons, and a layout that feels alive.</p>
         <div class="hero-actions">
           <button class="btn-primary" id="heroPrimaryBtn">Explore</button>
           <button class="btn-secondary" id="heroSecondaryBtn">Learn more</button>
@@ -582,14 +580,14 @@
         </div>
 
         <div class="slider-controls">
-          <button class="slider-btn" id="prevSlide" aria-label="Previous slide">←</button>
+          <button class="slider-btn" id="prevSlide">←</button>
           <div class="slider-dots" id="sliderDots">
-            <button class="dot active" data-index="0" aria-label="Slide 1"></button>
-            <button class="dot" data-index="1" aria-label="Slide 2"></button>
-            <button class="dot" data-index="2" aria-label="Slide 3"></button>
-            <button class="dot" data-index="3" aria-label="Slide 4"></button>
+            <button class="dot active" data-index="0"></button>
+            <button class="dot" data-index="1"></button>
+            <button class="dot" data-index="2"></button>
+            <button class="dot" data-index="3"></button>
           </div>
-          <button class="slider-btn" id="nextSlide" aria-label="Next slide">→</button>
+          <button class="slider-btn" id="nextSlide">→</button>
         </div>
       </div>
     </section>
@@ -664,18 +662,11 @@
         resetAutoSlide();
       }
 
-      function nextSlide() {
-        goToSlide(currentIndex + 1);
-      }
-
-      function prevSlide() {
-        goToSlide(currentIndex - 1);
-      }
+      function nextSlide() { goToSlide(currentIndex + 1); }
+      function prevSlide() { goToSlide(currentIndex - 1); }
 
       function startAutoSlide() {
-        autoSlideInterval = setInterval(() => {
-          nextSlide();
-        }, 3500);
+        autoSlideInterval = setInterval(() => { nextSlide(); }, 3500);
       }
 
       function resetAutoSlide() {
@@ -687,9 +678,7 @@
       nextBtn.addEventListener('click', nextSlide);
 
       dots.forEach((dot, idx) => {
-        dot.addEventListener('click', function() {
-          goToSlide(idx);
-        });
+        dot.addEventListener('click', function() { goToSlide(idx); });
       });
 
       document.addEventListener('keydown', (e) => {
@@ -699,7 +688,7 @@
 
       startAutoSlide();
 
-      // --- NAVIGATION LINKS with beautiful panels ---
+      // --- NAVIGATION PANELS ---
       const infoPanel = document.getElementById('infoPanel');
       const panelTitle = document.getElementById('panelTitle');
       const panelDesc = document.getElementById('panelDesc');
@@ -717,187 +706,196 @@
         window.open(url, '_blank');
       }
 
-      // --- Function to create the Explore page ---
+      // --- EXPLORE PAGE (separate HTML in a new tab) ---
       function openExplorePage() {
-        const exploreHTML = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Explore · Vertex</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #faf9f6;
-      color: #1e1e2a;
-      line-height: 1.6;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 2rem;
-      text-align: center;
-    }
-    .explore-card {
-      max-width: 700px;
-      background: white;
-      padding: 4rem 3rem;
-      border-radius: 64px;
-      box-shadow: 0 30px 60px -20px rgba(0,0,0,0.15);
-      border: 1px solid rgba(0,0,0,0.02);
-    }
-    h1 {
-      font-size: 3.2rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, #6c63ff, #a78bfa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    p {
-      font-size: 1.2rem;
-      color: #4a4a5e;
-      margin-bottom: 2rem;
-    }
-    .explore-features {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin: 2rem 0;
-    }
-    .explore-features div {
-      background: #f5f3fe;
-      padding: 1.5rem;
-      border-radius: 24px;
-      font-weight: 500;
-    }
-    .explore-features div span {
-      font-size: 2rem;
-      display: block;
-      margin-bottom: 0.3rem;
-    }
-    .btn-back {
-      display: inline-block;
-      background: #1e1e2a;
-      color: white;
-      text-decoration: none;
-      padding: 0.9rem 2.5rem;
-      border-radius: 60px;
-      font-weight: 600;
-      transition: 0.2s;
-      margin-top: 1rem;
-    }
-    .btn-back:hover {
-      background: #2f2f4a;
-      transform: scale(1.02);
-    }
-    @media (max-width: 500px) {
-      .explore-features { grid-template-columns: 1fr; }
-      .explore-card { padding: 2rem 1.5rem; }
-      h1 { font-size: 2.2rem; }
-    }
-  </style>
-</head>
-<body>
-  <div class="explore-card">
-    <h1>✦ Explore Vertex</h1>
-    <p>You've unlocked a world of structured design, beautiful motion, and endless possibilities.</p>
-    <div class="explore-features">
-      <div><span>🎨</span>Design System</div>
-      <div><span>⚡</span>Performance</div>
-      <div><span>📱</span>Responsive</div>
-      <div><span>🧩</span>Modular</div>
-    </div>
-    <p style="font-size: 1rem; color: #6c63ff; font-weight: 500;">This is a dedicated Explore page — crafted just for you.</p>
-    <a href="#" class="btn-back" onclick="window.close(); return false;">Close this tab</a>
-  </div>
-</body>
-</html>`;
-        // Create blob and open new tab
-        const blob = new Blob([exploreHTML], { type: 'text/html' });
-        const url = URL.createObjectURL(blob);
-        window.open(url, '_blank');
-        // Revoke after a short delay to free memory
-        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        // Build a complete HTML document as a string
+        const exploreHTML = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>Explore · Vertex</title>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+          <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body {
+              font-family: 'Inter', sans-serif;
+              background: #faf9f6;
+              color: #1e1e2a;
+              line-height: 1.6;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              min-height: 100vh;
+              padding: 2rem;
+              text-align: center;
+            }
+            .explore-card {
+              max-width: 700px;
+              background: white;
+              padding: 4rem 3rem;
+              border-radius: 64px;
+              box-shadow: 0 30px 60px -20px rgba(0,0,0,0.15);
+              border: 1px solid rgba(0,0,0,0.02);
+            }
+            h1 {
+              font-size: 3.2rem;
+              font-weight: 700;
+              letter-spacing: -0.02em;
+              margin-bottom: 1rem;
+              background: linear-gradient(135deg, #6c63ff, #a78bfa);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+            }
+            p {
+              font-size: 1.2rem;
+              color: #4a4a5e;
+              margin-bottom: 2rem;
+            }
+            .explore-features {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 1.5rem;
+              margin: 2rem 0;
+            }
+            .explore-features div {
+              background: #f5f3fe;
+              padding: 1.5rem;
+              border-radius: 24px;
+              font-weight: 500;
+            }
+            .explore-features div span {
+              font-size: 2rem;
+              display: block;
+              margin-bottom: 0.3rem;
+            }
+            .btn-back {
+              display: inline-block;
+              background: #1e1e2a;
+              color: white;
+              text-decoration: none;
+              padding: 0.9rem 2.5rem;
+              border-radius: 60px;
+              font-weight: 600;
+              transition: 0.2s;
+              margin-top: 1rem;
+              border: none;
+              cursor: pointer;
+            }
+            .btn-back:hover {
+              background: #2f2f4a;
+              transform: scale(1.02);
+            }
+            @media (max-width: 500px) {
+              .explore-features { grid-template-columns: 1fr; }
+              .explore-card { padding: 2rem 1.5rem; }
+              h1 { font-size: 2.2rem; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="explore-card">
+            <h1>✦ Explore Vertex</h1>
+            <p>You've unlocked a world of structured design, beautiful motion, and endless possibilities.</p>
+            <div class="explore-features">
+              <div><span>🎨</span>Design System</div>
+              <div><span>⚡</span>Performance</div>
+              <div><span>📱</span>Responsive</div>
+              <div><span>🧩</span>Modular</div>
+            </div>
+            <p style="font-size: 1rem; color: #6c63ff; font-weight: 500;">This is a dedicated Explore page — crafted just for you.</p>
+            <button class="btn-back" onclick="window.close();">Close this tab</button>
+          </div>
+        </body>
+        </html>
+        `;
+
+        // Use a data URI to open in a new tab (more reliable than blob)
+        const encoded = encodeURIComponent(exploreHTML);
+        const dataUri = 'data:text/html;charset=utf-8,' + encoded;
+        window.open(dataUri, '_blank');
       }
 
-      // --- Event listeners for buttons ---
+      // --- EVENT LISTENERS ---
+      // Home: hide panel and scroll to top
       document.getElementById('navHome').addEventListener('click', function(e) {
         e.preventDefault();
         infoPanel.classList.remove('active');
         document.getElementById('homeSection').scrollIntoView({ behavior: 'smooth' });
       });
 
+      // Features panel
       document.getElementById('navFeatures').addEventListener('click', function(e) {
         e.preventDefault();
         showPanel(
           '✨ Powerful Features',
           'Everything you need to build stunning digital experiences.',
-          \`<div class="features-grid">
-              <div class="feature-item"><span class="icon">🎨</span><h4>Design System</h4><p>Consistent components, variables, and tokens.</p></div>
-              <div class="feature-item"><span class="icon">⚡</span><h4>Performance</h4><p>Optimized for speed and smooth interactions.</p></div>
-              <div class="feature-item"><span class="icon">🔒</span><h4>Security</h4><p>Built with best practices to keep data safe.</p></div>
-              <div class="feature-item"><span class="icon">🌐</span><h4>Global Ready</h4><p>Multi-language and accessibility support.</p></div>
-              <div class="feature-item"><span class="icon">📱</span><h4>Responsive</h4><p>Looks perfect on every device and screen.</p></div>
-              <div class="feature-item"><span class="icon">🧩</span><h4>Modular</h4><p>Plug-and-play components for rapid development.</p></div>
-            </div>\`
+          `<div class="features-grid">
+            <div class="feature-item"><span class="icon">🎨</span><h4>Design System</h4><p>Consistent components, variables, and tokens.</p></div>
+            <div class="feature-item"><span class="icon">⚡</span><h4>Performance</h4><p>Optimized for speed and smooth interactions.</p></div>
+            <div class="feature-item"><span class="icon">🔒</span><h4>Security</h4><p>Built with best practices.</p></div>
+            <div class="feature-item"><span class="icon">🌐</span><h4>Global Ready</h4><p>Multi‑language and accessibility.</p></div>
+            <div class="feature-item"><span class="icon">📱</span><h4>Responsive</h4><p>Looks perfect on every device.</p></div>
+            <div class="feature-item"><span class="icon">🧩</span><h4>Modular</h4><p>Plug‑and‑play components.</p></div>
+          </div>`
         );
       });
 
+      // Pricing panel
       document.getElementById('navPricing').addEventListener('click', function(e) {
         e.preventDefault();
         showPanel(
           '💎 Simple Pricing',
-          'Choose a plan that fits your needs. No hidden fees.',
-          \`<div class="features-grid">
-              <div class="feature-item" style="background:#f0edff;"><span class="icon">🆓</span><h4>Starter</h4><p style="font-size:1.4rem; font-weight:700; color:#1e1e2a;">$0</p><p>Basic features for personal projects.</p></div>
-              <div class="feature-item" style="background:#e8e4ff;"><span class="icon">🚀</span><h4>Pro</h4><p style="font-size:1.4rem; font-weight:700; color:#1e1e2a;">$29/mo</p><p>Advanced tools for professionals.</p></div>
-              <div class="feature-item" style="background:#ddd8ff;"><span class="icon">🏢</span><h4>Enterprise</h4><p style="font-size:1.4rem; font-weight:700; color:#1e1e2a;">Custom</p><p>Full control, dedicated support, and scale.</p></div>
-            </div>\`
+          'Choose a plan that fits your needs.',
+          `<div class="features-grid">
+            <div class="feature-item" style="background:#f0edff;"><span class="icon">🆓</span><h4>Starter</h4><p style="font-size:1.4rem;font-weight:700;">$0</p><p>Basic features for personal projects.</p></div>
+            <div class="feature-item" style="background:#e8e4ff;"><span class="icon">🚀</span><h4>Pro</h4><p style="font-size:1.4rem;font-weight:700;">$29/mo</p><p>Advanced tools for professionals.</p></div>
+            <div class="feature-item" style="background:#ddd8ff;"><span class="icon">🏢</span><h4>Enterprise</h4><p style="font-size:1.4rem;font-weight:700;">Custom</p><p>Full control and dedicated support.</p></div>
+          </div>`
         );
       });
 
+      // About panel
       document.getElementById('navAbout').addEventListener('click', function(e) {
         e.preventDefault();
         showPanel(
           '🌟 About Vertex',
           'We’re a team of designers, engineers, and dreamers.',
-          \`<div class="features-grid">
-              <div class="feature-item"><span class="icon">🎯</span><h4>Our Mission</h4><p>To make beautiful, structured design accessible to everyone.</p></div>
-              <div class="feature-item"><span class="icon">💡</span><h4>Our Values</h4><p>Clarity, simplicity, and continuous improvement.</p></div>
-              <div class="feature-item"><span class="icon">🤝</span><h4>Community</h4><p>Open source, collaborative, and always evolving.</p></div>
-            </div>
-            <p style="margin-top:1.5rem; color:#6c63ff; font-weight:500;">Built with ❤️ by passionate creators.</p>\`
+          `<div class="features-grid">
+            <div class="feature-item"><span class="icon">🎯</span><h4>Our Mission</h4><p>Beautiful, structured design for everyone.</p></div>
+            <div class="feature-item"><span class="icon">💡</span><h4>Our Values</h4><p>Clarity, simplicity, improvement.</p></div>
+            <div class="feature-item"><span class="icon">🤝</span><h4>Community</h4><p>Open source and collaborative.</p></div>
+          </div>
+          <p style="margin-top:1.5rem; color:#6c63ff; font-weight:500;">Built with ❤️ by passionate creators.</p>`
         );
       });
 
-      // --- Button actions ---
-      // Explore -> opens the custom Explore page
+      // --- BUTTON ACTIONS ---
+      // Explore → opens the dedicated Explore page
       document.getElementById('heroPrimaryBtn').addEventListener('click', function() {
         openExplorePage();
       });
 
-      // Other buttons -> ChatGPT
+      // Get started (nav) → goes to a generic page (not ChatGPT)
       document.getElementById('navCtaBtn').addEventListener('click', function() {
-        openInNewTab('https://chatgpt.com/');
+        openInNewTab('https://example.com/get-started');
       });
 
+      // Learn more → generic page
       document.getElementById('heroSecondaryBtn').addEventListener('click', function() {
-        openInNewTab('https://chatgpt.com/');
+        openInNewTab('https://example.com/learn-more');
       });
 
+      // Start now (CTA) → ONLY this one goes to ChatGPT
       document.getElementById('ctaMainBtn').addEventListener('click', function() {
         openInNewTab('https://chatgpt.com/');
       });
 
-      // --- Social links ---
+      // --- SOCIAL LINKS ---
       document.getElementById('footerTwitter').addEventListener('click', function(e) {
         e.preventDefault();
         openInNewTab('https://twitter.com/yourprofile');
