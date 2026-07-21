@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vertex · interactive slider</title>
+  <title>Vertex</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
@@ -180,7 +180,7 @@
     .slider-container {
       overflow: hidden;
       border-radius: 32px;
-      background: #ddd8ed;
+      background: #1e1e2a;
       position: relative;
       aspect-ratio: 4 / 3;
       display: flex;
@@ -205,15 +205,27 @@
       background-size: cover;
       background-position: center;
       position: relative;
+      background-color: #2d2d44;
     }
 
-    .slide-1 { background: linear-gradient(145deg, #a78bfa, #7c6af0); }
-    .slide-2 { background: linear-gradient(145deg, #f9a8d4, #f472b6); }
-    .slide-3 { background: linear-gradient(145deg, #6ee7b7, #34d399); }
-    .slide-4 { background: linear-gradient(145deg, #fcd34d, #f59e0b); }
+    .slide::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.25);
+      z-index: 1;
+    }
+
+    .slide-1 { background-image: url('https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=800&h=600&fit=crop&q=80'); }
+    .slide-2 { background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=600&fit=crop&q=80'); }
+    .slide-3 { background-image: url('https://images.unsplash.com/photo-1494526585095-c41746248156?w=800&h=600&fit=crop&q=80'); }
+    .slide-4 { background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop&q=80'); }
 
     .slide-content {
-      background: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.15);
       backdrop-filter: blur(8px);
       padding: 1.2rem 2.2rem;
       border-radius: 60px;
@@ -221,8 +233,10 @@
       font-weight: 600;
       font-size: 1.6rem;
       letter-spacing: -0.01em;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      border: 1px solid rgba(255,255,255,0.25);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.2);
+      z-index: 2;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
 
     .slider-controls {
@@ -616,7 +630,7 @@
       <div class="footer-links">
         <a href="#" id="footerTwitter">Twitter</a>
         <a href="#" id="footerGithub">GitHub</a>
-        <a href="#" id="footerDribbble">Dribbble</a>
+        <a href="#" id="footerFacebook">Facebook</a>
         <a href="#" id="footerContact">Contact</a>
       </div>
     </footer>
@@ -695,7 +709,6 @@
         panelTitle.textContent = title;
         panelDesc.textContent = desc;
         panelContent.innerHTML = contentHTML || '';
-        // scroll to panel
         infoPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
 
@@ -703,14 +716,12 @@
         window.open(url, '_blank');
       }
 
-      // Home - show the hero section again and hide panel
       document.getElementById('navHome').addEventListener('click', function(e) {
         e.preventDefault();
         infoPanel.classList.remove('active');
         document.getElementById('homeSection').scrollIntoView({ behavior: 'smooth' });
       });
 
-      // Features - beautiful detailed panel
       document.getElementById('navFeatures').addEventListener('click', function(e) {
         e.preventDefault();
         showPanel(
@@ -753,7 +764,6 @@
         );
       });
 
-      // Pricing - beautiful panel
       document.getElementById('navPricing').addEventListener('click', function(e) {
         e.preventDefault();
         showPanel(
@@ -784,7 +794,6 @@
         );
       });
 
-      // About - beautiful panel
       document.getElementById('navAbout').addEventListener('click', function(e) {
         e.preventDefault();
         showPanel(
@@ -814,10 +823,6 @@
       });
 
       // --- GET STARTED BUTTONS ---
-      function openInNewTab(url) {
-        window.open(url, '_blank');
-      }
-
       document.getElementById('navCtaBtn').addEventListener('click', function() {
         openInNewTab('https://example.com/get-started');
       });
@@ -834,7 +839,7 @@
         openInNewTab('https://example.com/start-now');
       });
 
-      // --- SOCIAL LINKS (your custom links) ---
+      // --- SOCIAL LINKS ---
       document.getElementById('footerTwitter').addEventListener('click', function(e) {
         e.preventDefault();
         openInNewTab('https://twitter.com/yourprofile');
@@ -847,7 +852,7 @@
 
       document.getElementById('footerFacebook').addEventListener('click', function(e) {
         e.preventDefault();
-        openInNewTab('https://www.facebook.com/profile.php?id=61590431027045');
+        openInNewTab('https://www.facebook.com/brent.correos.2024/');
       });
 
       document.getElementById('footerContact').addEventListener('click', function(e) {
